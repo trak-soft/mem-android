@@ -19,7 +19,7 @@ import com.trak.mem.ui.theme.MemandroidTheme
  * @param modifier
  */
 @Composable
-fun AddGame(
+fun AddGameView(
     modifier: Modifier = Modifier,
     image: Int = R.drawable.ic_add_game
 ) {
@@ -37,18 +37,18 @@ fun AddGame(
 
 @Preview(name = "add game")
 @Composable
-fun AddGamePreview(){
+fun AddGameViewPreview(){
     MemandroidTheme(darkTheme = true) {
-        AddGame()
+        AddGameView()
     }
 }
 
 @Preview("menu option add game")
 @Composable
-fun MenuOptionAddGamePreview(){
+fun MenuOptionViewAddGamePreview(){
     MemandroidTheme(darkTheme = true) {
-        MenuOption{
-            AddGame(
+        MenuOptionView{
+            AddGameView(
                 modifier = Modifier
                 .align(Alignment.Center)
             )
