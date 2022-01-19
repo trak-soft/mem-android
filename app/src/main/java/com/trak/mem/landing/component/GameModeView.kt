@@ -18,16 +18,6 @@ import com.trak.mem.ui.theme.MemandroidTheme
 import com.trak.mem.ui.theme.gameModePaddingViewPadding
 import com.trak.mem.ui.theme.menuOptionTextStyle
 
-/**
- * @param
- */
-data class Mode(
-    val groupLength: Int = 12,
-    val numOfGroup: Int = 29,
-    val preview: Boolean = true,
-    val clickLimit: Int? = 4,
-    val timeLimit: Int? = null
-)
 
 /**
  * info view
@@ -67,12 +57,20 @@ fun InfoView(
 /***
  * game mode view
  *
- * @param mode - game mode setting
+ * @param groupLength - length of one group
+ * @param numOfGroup - number of groups
+ * @param preview - if board will be preview at the start
+ * @param clickLimit - max number of click
+ * @param timeLimit - time limit to solve
  */
 @Composable
 fun GameModeView(
     modifier: Modifier,
-    mode: Mode,
+    groupLength: Int,
+    numOfGroup: Int,
+    preview: Boolean,
+    clickLimit: Int? = null,
+    timeLimit: Int? = null
 ){
     Box(
         modifier = modifier
@@ -86,30 +84,30 @@ fun GameModeView(
         ) {
             InfoView(
                 modifier = Modifier,
-                number = mode.groupLength,
+                number = groupLength,
                 image = R.drawable.ic_group_length,
                 contentDescription = stringResource(
                     id = R.string.ic_group_length_content_description,
-                    mode.groupLength
+                    groupLength
                 )
             )
             InfoView(
                 modifier = Modifier,
                 number = null,
-                image = if (mode.preview) R.drawable.ic_preview else R.drawable.ic_no_preview,
+                image = if (preview) R.drawable.ic_preview else R.drawable.ic_no_preview,
                 contentDescription = stringResource(
-                    id = if (mode.preview)
+                    id = if (preview)
                         R.string.ic_preview_content_description
                     else R.string.ic_no_preview_content_description
                 )
             )
             InfoView(
                 modifier = Modifier,
-                number = mode.numOfGroup,
+                number = numOfGroup,
                 image = R.drawable.ic_num_of_group,
                 contentDescription = stringResource(
                     id = R.string.ic_group_length_content_description,
-                    mode.numOfGroup
+                    numOfGroup
                 )
             )
         }
@@ -120,7 +118,7 @@ fun GameModeView(
                 .align(Alignment.BottomCenter),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            mode.timeLimit?.let { timeLimit ->
+            timeLimit?.let { timeLimit ->
                 InfoView(
                     modifier = Modifier,
                     number = timeLimit,
@@ -131,8 +129,7 @@ fun GameModeView(
                     )
                 )
             }
-
-            mode.clickLimit?.let { clickLimit ->
+            clickLimit?.let { clickLimit ->
                 InfoView(
                     modifier = Modifier,
                     number = clickLimit,
@@ -201,10 +198,14 @@ fun GamModeWidgetViewPreview(){
 @Composable
 fun MenuOptionGameModePreview(){
     MemandroidTheme(darkTheme = true) {
-        MenuOptionView(){
+        MenuOptionView {
             GameModeView(
                 modifier = Modifier,
-                mode = Mode()
+                groupLength = 3,
+                numOfGroup = 2,
+                preview = true,
+                clickLimit = null,
+                timeLimit = null
             )
         }
     }
@@ -216,7 +217,11 @@ fun GameModeViewPreview(){
     MemandroidTheme(darkTheme = true) {
         GameModeView(
             modifier = Modifier,
-            mode = Mode()
+            groupLength = 3,
+            numOfGroup = 2,
+            preview = true,
+            clickLimit = 56,
+            timeLimit = 24
         )
     }
 }
