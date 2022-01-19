@@ -16,8 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.trak.mem.ui.theme.MemandroidTheme
-import com.trak.mem.ui.theme.menuOptionBoarderWidth
-import com.trak.mem.ui.theme.menuOptionRoundedCorner
+import com.trak.mem.ui.theme.menuOptionViewBoarderWidth
+import com.trak.mem.ui.theme.menuOptionViewRoundedCorner
 
 /**
  * Generalize MenuOption Composable Component
@@ -30,7 +30,7 @@ import com.trak.mem.ui.theme.menuOptionRoundedCorner
  * @param content child composable
  */
 @Composable
-fun MenuOption(
+fun MenuOptionView(
     modifier: Modifier = Modifier,
     width : Dp = 145.dp,
     height : Dp = 145.dp,
@@ -40,11 +40,11 @@ fun MenuOption(
 ){
     Box(
         modifier = modifier.size(width = width, height = height)
-            .clip(RoundedCornerShape(menuOptionRoundedCorner))
+            .clip(RoundedCornerShape(menuOptionViewRoundedCorner))
             .border(
-                width = menuOptionBoarderWidth,
+                width = menuOptionViewBoarderWidth,
                 color = MaterialTheme.colors.onSurface,
-                shape = RoundedCornerShape(menuOptionRoundedCorner)
+                shape = RoundedCornerShape(menuOptionViewRoundedCorner)
             )
             .background(color = bgColor)
             .clickable { onClick() }
@@ -55,9 +55,9 @@ fun MenuOption(
 
 @Preview
 @Composable
-fun MenuOptionPreview(){
+fun MenuOptionViewPreview(){
     MemandroidTheme(darkTheme = true) {
-        MenuOption {
+        MenuOptionView {
         }
     }
 }

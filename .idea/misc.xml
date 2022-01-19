@@ -4,6 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/dognet200017/Documents/GitHub/mem-android/app/src/main/res/drawable/ic_add_game.xml" value="0.23541666666666666" />
+        <entry key="..\:/Users/dognet200017/Documents/GitHub/mem-android/app/src/main/res/drawable/ic_click_limit.xml" value="0.23541666666666666" />
+        <entry key="..\:/Users/dognet200017/Documents/GitHub/mem-android/app/src/main/res/drawable/ic_launcher_background.xml" value="0.23541666666666666" />
+        <entry key="..\:/Users/dognet200017/Documents/GitHub/mem-android/app/src/main/res/drawable/ic_no_preview.xml" value="0.23541666666666666" />
+        <entry key="..\:/Users/dognet200017/Documents/GitHub/mem-android/app/src/main/res/drawable/ic_num_of_group.xml" value="0.23541666666666666" />
+        <entry key="..\:/Users/dognet200017/Documents/GitHub/mem-android/app/src/main/res/drawable/ic_preview.xml" value="0.23541666666666666" />
+        <entry key="..\:/Users/dognet200017/Documents/GitHub/mem-android/app/src/main/res/drawable/ic_time_limit.xml" value="0.23541666666666666" />
       </map>
     </option>
   </component>
