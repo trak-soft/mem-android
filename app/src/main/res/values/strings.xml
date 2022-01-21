@@ -6,4 +6,8 @@
     <string name="ic_preview_content_description">preview</string>
     <string name="ic_no_preview_content_description">no preview</string>
     <string name="ic_time_limit_content_description">%d seconds left</string>
+    <string name="ic_memory_content_description">"memory icon</string>
+    <string name="ic_create_content_description">"create icon</string>
+    <string name="memory">Memory</string>
+    <string name="create">Create</string>
 </resources>

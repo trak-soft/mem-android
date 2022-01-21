@@ -7,13 +7,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import com.trak.mem.ui.theme.MemandroidTheme
+import com.trak.mem.ui.theme.optionViewPadding
 
 /**
  * Option type
@@ -32,7 +31,6 @@ sealed class OptionType{
  *
  * @param options - list of optionType
  * @param rowCount - size of row
- * @param padding - element padding
  */
 @ExperimentalFoundationApi
 @Composable
@@ -40,7 +38,6 @@ fun OptionView(
     modifier: Modifier,
     options : Set<OptionType>,
     rowCount: Int = 2,
-    padding: Dp = 15.dp
 ){
     LazyVerticalGrid(
         modifier = modifier
@@ -52,7 +49,7 @@ fun OptionView(
                 modifier = Modifier
                     .fillMaxWidth(1f / rowCount)
                     .aspectRatio(1f)
-                    .padding(padding),
+                    .padding(optionViewPadding),
                 onClick = {
                     when (option) {
                         is OptionType.Mode -> {}
