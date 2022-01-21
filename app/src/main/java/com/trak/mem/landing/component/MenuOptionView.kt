@@ -5,6 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -31,15 +32,13 @@ import com.trak.mem.ui.theme.menuOptionViewRoundedCorner
  */
 @Composable
 fun MenuOptionView(
-    modifier: Modifier = Modifier,
-    width : Dp = 145.dp,
-    height : Dp = 145.dp,
+    modifier: Modifier,
     bgColor: Color = Color.Gray,
     onClick: () -> Unit = {},
     content: @Composable BoxScope.() -> Unit
 ){
     Box(
-        modifier = modifier.size(width = width, height = height)
+        modifier = modifier
             .clip(RoundedCornerShape(menuOptionViewRoundedCorner))
             .border(
                 width = menuOptionViewBoarderWidth,
@@ -53,11 +52,11 @@ fun MenuOptionView(
     }
 }
 
-@Preview
+@Preview(widthDp = 145, heightDp = 145)
 @Composable
 fun MenuOptionViewPreview(){
     MemandroidTheme(darkTheme = true) {
-        MenuOptionView {
+        MenuOptionView(modifier = Modifier) {
         }
     }
 }

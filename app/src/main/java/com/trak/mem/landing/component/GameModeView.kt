@@ -194,11 +194,11 @@ fun GamModeWidgetViewPreview(){
     }
 }
 
-@Preview(name = "game mode menu option")
+@Preview(name = "game mode menu option", widthDp = 145, heightDp = 145)
 @Composable
 fun MenuOptionGameModePreview(){
     MemandroidTheme(darkTheme = true) {
-        MenuOptionView {
+        MenuOptionView(modifier = Modifier) {
             GameModeView(
                 modifier = Modifier,
                 groupLength = 3,

@@ -3,17 +3,35 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/dognet200017/Documents/GitHub/mem-android/app/src/main/res/drawable/ic_add_game.xml" value="0.23541666666666666" />
-        <entry key="..\:/Users/dognet200017/Documents/GitHub/mem-android/app/src/main/res/drawable/ic_click_limit.xml" value="0.23541666666666666" />
-        <entry key="..\:/Users/dognet200017/Documents/GitHub/mem-android/app/src/main/res/drawable/ic_launcher_background.xml" value="0.23541666666666666" />
-        <entry key="..\:/Users/dognet200017/Documents/GitHub/mem-android/app/src/main/res/drawable/ic_no_preview.xml" value="0.23541666666666666" />
-        <entry key="..\:/Users/dognet200017/Documents/GitHub/mem-android/app/src/main/res/drawable/ic_num_of_group.xml" value="0.23541666666666666" />
-        <entry key="..\:/Users/dognet200017/Documents/GitHub/mem-android/app/src/main/res/drawable/ic_preview.xml" value="0.23541666666666666" />
-        <entry key="..\:/Users/dognet200017/Documents/GitHub/mem-android/app/src/main/res/drawable/ic_time_limit.xml" value="0.23541666666666666" />
+        <entry key="../../../../layout/compose-model-1642536920308.xml" value="0.7458699789162301" />
+        <entry key="../../../../layout/compose-model-1642544098467.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1642608445736.xml" value="0.6783707865168539" />
+        <entry key="../../../../layout/compose-model-1642608997727.xml" value="0.3433277027027027" />
+        <entry key="../../../../layout/compose-model-1642609012385.xml" value="0.6669107812369134" />
+        <entry key="../../../../layout/compose-model-1642609016601.xml" value="0.5" />
+        <entry key="../../../../layout/compose-model-1642705827023.xml" value="0.6832765853754348" />
+        <entry key="../../../../layout/compose-model-1642706062815.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1642706067142.xml" value="0.3106447689696924" />
+        <entry key="../../../../layout/compose-model-1642709335187.xml" value="0.5369881109643329" />
+        <entry key="../../../../layout/compose-model-1642710867804.xml" value="0.3433277027027027" />
+        <entry key="../../../../layout/compose-model-1642710873713.xml" value="0.362962962962963" />
+        <entry key="../../../../layout/compose-model-1642712965391.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1642712968774.xml" value="0.6791979949874687" />
+        <entry key="../../../../layout/compose-model-1642714352231.xml" value="0.32723812270137687" />
+        <entry key="../../../../layout/compose-model-1642715737513.xml" value="0.24722222222222223" />
+        <entry key="../../../../layout/compose-model-1642715863054.xml" value="0.6691729323308271" />
+        <entry key="../../../../layout/compose-model-1642715870980.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1642722739292.xml" value="0.22295364513614085" />
+        <entry key="../../../../layout/compose-model-1642723591109.xml" value="0.6591478696741855" />
+        <entry key="../../../../layout/compose-model-1642723636395.xml" value="0.4011614492944964" />
+        <entry key="../../../../layout/compose-model-1642723636399.xml" value="0.5363276089828269" />
+        <entry key="../../../../layout/compose-model-1642723644967.xml" value="0.6591478696741855" />
+        <entry key="../../../../layout/compose-model-1642729568069.xml" value="0.25" />
+        <entry key="../../../../layout/compose-model-1642765461537.xml" value="0.37157221206581353" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
