@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,7 +38,7 @@ sealed class OptionType{
 @Composable
 fun OptionView(
     modifier: Modifier,
-    options : List<OptionType>,
+    options : Set<OptionType>,
     rowCount: Int = 2,
     padding: Dp = 15.dp
 ){
@@ -46,8 +47,7 @@ fun OptionView(
             .fillMaxWidth(),
         cells = GridCells.Fixed(rowCount)
     ) {
-        items(options.size) {
-            val option = options[it]
+        items(options.toList()){ option ->
             MenuOptionView(
                 modifier = Modifier
                     .fillMaxWidth(1f / rowCount)
@@ -89,16 +89,14 @@ fun OptionViewPreview(){
     MemandroidTheme(darkTheme = true) {
         OptionView(
             modifier = Modifier,
-            options = listOf(
-                OptionType.Add,
-                OptionType.Mode(2, 9, true, null, null),
+            options = setOf(
                 OptionType.Add,
                 OptionType.Add,
                 OptionType.Mode(2, 9, true, null, null),
+                OptionType.Mode(2, 9, true, null, 3),
+                OptionType.Mode(2, 9, true, 67, null),
                 OptionType.Mode(2, 9, true, 23, 11),
-                OptionType.Add,
             )
         )
     }
-
 }
