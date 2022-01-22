@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">mem-android</string>
+    <string name="app_name">memory</string>
     <string name="ic_add_game_content_description">add game mode</string>
     <string name="ic_click_limit_content_description">%d clicks left</string>
     <string name="ic_group_length_content_description">%d group length</string>

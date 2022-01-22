@@ -7,3 +7,6 @@ val menuOptionViewBoarderWidth = 2.dp
 val gameModePaddingViewPadding = 5.dp
 val titleViewSpaceBetween = 5.dp
 val optionViewPadding = 15.dp
+val landingScreenFirstSpacer = 40.dp
+val landingScreenSecondSpacer = 50.dp
+val landingScreenOptionViewPadding = 20.dp

@@ -48,7 +48,7 @@ fun TitleView(
     }
 }
 
-@Preview(showSystemUi = true, showBackground = true)
+@Preview
 @Composable
 fun TitleViewPreview(){
     MemandroidTheme(darkTheme = false) {
