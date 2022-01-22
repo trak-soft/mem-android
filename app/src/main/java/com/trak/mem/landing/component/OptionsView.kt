@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.trak.mem.ui.theme.MemandroidTheme
 import com.trak.mem.ui.theme.optionViewPadding
@@ -19,10 +20,10 @@ import com.trak.mem.ui.theme.optionViewPadding
  */
 sealed class OptionType{
     data class Mode(val groupLength: Int,
-                    val numOfGroup: Int,
                     val preview: Boolean,
-                    val clickLimit: Int?,
-                    val timeLimit: Int?) : OptionType()
+                    val numOfGroup: Int,
+                    val timeLimit: Int?,
+                    val clickLimit: Int?) : OptionType()
     object Add: OptionType()
 }
 
@@ -37,7 +38,10 @@ sealed class OptionType{
 fun OptionView(
     modifier: Modifier,
     options : Set<OptionType>,
-    rowCount: Int = 2,
+    bgColor: Color,
+    rowCount: Int,
+    onClick: (OptionType) -> Unit,
+    onHold: (OptionType) -> Unit
 ){
     LazyVerticalGrid(
         modifier = modifier
@@ -50,11 +54,12 @@ fun OptionView(
                     .fillMaxWidth(1f / rowCount)
                     .aspectRatio(1f)
                     .padding(optionViewPadding),
+                bgColor = bgColor,
                 onClick = {
-                    when (option) {
-                        is OptionType.Mode -> {}
-                        is OptionType.Add -> {}
-                    }
+                    onClick(option)
+                },
+                onHold = {
+                    onHold(option)
                 }
             ) {
                 when (option) {
@@ -62,8 +67,8 @@ fun OptionView(
                         GameModeView(
                             modifier = Modifier,
                             groupLength = option.groupLength,
-                            numOfGroup = option.numOfGroup,
                             preview = option.preview,
+                            numOfGroup = option.numOfGroup,
                             clickLimit = option.clickLimit,
                             timeLimit = option.timeLimit
                         )
@@ -88,12 +93,18 @@ fun OptionViewPreview(){
             modifier = Modifier,
             options = setOf(
                 OptionType.Add,
-                OptionType.Add,
-                OptionType.Mode(2, 9, true, null, null),
-                OptionType.Mode(2, 9, true, null, 3),
-                OptionType.Mode(2, 9, true, 67, null),
-                OptionType.Mode(2, 9, true, 23, 11),
-            )
+                OptionType.Mode(2,  true,9, null, null),
+                OptionType.Mode(2,  true,9, null, 3),
+                OptionType.Mode(2,  true,9, 67, null),
+                OptionType.Mode(2,  true,9, 23, 11),
+            ),
+            bgColor = Color.Transparent,
+            rowCount = 2,
+            onClick = {
+            },
+            onHold = {
+
+            }
         )
     }
 }

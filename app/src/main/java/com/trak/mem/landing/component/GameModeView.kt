@@ -1,6 +1,6 @@
 package com.trak.mem.landing.component
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -32,25 +32,28 @@ fun InfoView(
     number: Int?,
     image: Int,
     contentDescription: String,
+    visible : Boolean,
 ){
     Row(
         modifier = modifier
             .wrapContentSize()
     ) {
-        number?.let {
-            Text(
+        if (visible) {
+            number?.let {
+                Text(
+                    modifier = Modifier.align(alignment = Alignment.CenterVertically),
+                    text = it.toString(),
+                    color = MaterialTheme.colors.onSurface,
+                    style = menuOptionTextStyle
+                )
+            }
+            Icon(
                 modifier = Modifier.align(alignment = Alignment.CenterVertically),
-                text = it.toString(),
-                color = MaterialTheme.colors.onSurface,
-                style = menuOptionTextStyle
+                painter = painterResource(id = image),
+                contentDescription = contentDescription,
+                tint = MaterialTheme.colors.onSurface
             )
         }
-        Icon(
-            modifier = Modifier.align(alignment = Alignment.CenterVertically),
-            painter = painterResource(id = image),
-            contentDescription = contentDescription,
-            tint = MaterialTheme.colors.onSurface
-        )
     }
 }
 
@@ -67,15 +70,14 @@ fun InfoView(
 fun GameModeView(
     modifier: Modifier,
     groupLength: Int,
-    numOfGroup: Int,
     preview: Boolean,
+    numOfGroup: Int,
+    timeLimit: Int? = null,
     clickLimit: Int? = null,
-    timeLimit: Int? = null
 ){
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.Gray)
             .padding(all = gameModePaddingViewPadding)
     ){
         Row(
@@ -89,7 +91,8 @@ fun GameModeView(
                 contentDescription = stringResource(
                     id = R.string.ic_group_length_content_description,
                     groupLength
-                )
+                ),
+                visible = true
             )
             InfoView(
                 modifier = Modifier,
@@ -99,7 +102,8 @@ fun GameModeView(
                     id = if (preview)
                         R.string.ic_preview_content_description
                     else R.string.ic_no_preview_content_description
-                )
+                ),
+                visible = true
             )
             InfoView(
                 modifier = Modifier,
@@ -108,7 +112,8 @@ fun GameModeView(
                 contentDescription = stringResource(
                     id = R.string.ic_group_length_content_description,
                     numOfGroup
-                )
+                ),
+                visible = true
             )
         }
 
@@ -118,28 +123,27 @@ fun GameModeView(
                 .align(Alignment.BottomCenter),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            timeLimit?.let { timeLimit ->
-                InfoView(
-                    modifier = Modifier,
-                    number = timeLimit,
-                    image = R.drawable.ic_time_limit,
-                    contentDescription = stringResource(
-                        id = R.string.ic_time_limit_content_description,
-                        timeLimit
-                    )
-                )
-            }
-            clickLimit?.let { clickLimit ->
-                InfoView(
-                    modifier = Modifier,
-                    number = clickLimit,
-                    image = R.drawable.ic_click_limit,
-                    contentDescription = stringResource(
-                        id = R.string.ic_click_limit_content_description,
-                        clickLimit
-                    )
-                )
-            }
+
+            InfoView(
+                modifier = Modifier,
+                number = timeLimit,
+                image = R.drawable.ic_time_limit,
+                contentDescription = stringResource(
+                    id = R.string.ic_time_limit_content_description,
+                    timeLimit ?: 0
+                ),
+                visible = timeLimit != null
+            )
+            InfoView(
+                modifier = Modifier,
+                number = clickLimit,
+                image = R.drawable.ic_click_limit,
+                contentDescription = stringResource(
+                    id = R.string.ic_click_limit_content_description,
+                    clickLimit ?: 0
+                ),
+                visible = clickLimit != null
+            )
         }
     }
 }
@@ -153,59 +157,71 @@ fun GamModeWidgetViewPreview(){
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 number = 2,
                 image = R.drawable.ic_group_length,
-                contentDescription = ""
+                contentDescription = "",
+                visible = true
             )
             Spacer(modifier = Modifier.height(10.dp))
             InfoView(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 number = null,
                 image = R.drawable.ic_preview,
-                contentDescription = ""
+                contentDescription = "",
+                visible = true
             )
             Spacer(modifier = Modifier.height(10.dp))
             InfoView(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 number = null,
                 image = R.drawable.ic_no_preview,
-                contentDescription = ""
+                contentDescription = "",
+                visible = true
             )
             Spacer(modifier = Modifier.height(10.dp))
             InfoView(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 number = 2,
                 image = R.drawable.ic_num_of_group,
-                contentDescription = ""
+                contentDescription = "",
+                visible = true
             )
             Spacer(modifier = Modifier.height(10.dp))
             InfoView(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 number = 2,
                 image = R.drawable.ic_time_limit,
-                contentDescription = ""
+                contentDescription = "",
+                visible = true
             )
             Spacer(modifier = Modifier.height(10.dp))
             InfoView(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 number = 2,
                 image = R.drawable.ic_click_limit,
-                contentDescription = ""
+                contentDescription = "",
+                visible = true
             )
         }
     }
 }
 
+@ExperimentalFoundationApi
 @Preview(name = "game mode menu option", widthDp = 145, heightDp = 145)
 @Composable
 fun MenuOptionGameModePreview(){
     MemandroidTheme(darkTheme = true) {
-        MenuOptionView(modifier = Modifier) {
+        MenuOptionView(
+            modifier = Modifier,
+            bgColor = Color.Transparent,
+            onClick = {},
+            onHold = {}
+        ) {
             GameModeView(
                 modifier = Modifier,
                 groupLength = 3,
-                numOfGroup = 2,
                 preview = true,
-                clickLimit = null,
-                timeLimit = null
+                numOfGroup = 2,
+                timeLimit = null,
+                clickLimit = 4
             )
         }
     }
@@ -218,10 +234,10 @@ fun GameModeViewPreview(){
         GameModeView(
             modifier = Modifier,
             groupLength = 3,
-            numOfGroup = 2,
             preview = true,
-            clickLimit = 56,
-            timeLimit = 24
+            numOfGroup = 2,
+            timeLimit = 24,
+            clickLimit = 56
         )
     }
 }
