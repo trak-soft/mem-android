@@ -1,4 +1,4 @@
-package com.trak.mem.landing
+package com.trak.mem.scene.landing
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
@@ -15,14 +15,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.trak.mem.R
 import com.trak.mem.common.component.TitleView
-import com.trak.mem.landing.component.OptionType
-import com.trak.mem.landing.component.OptionView
+import com.trak.mem.scene.landing.component.OptionType
+import com.trak.mem.scene.landing.component.OptionView
 import com.trak.mem.ui.theme.MemandroidTheme
 import com.trak.mem.ui.theme.landingScreenFirstSpacer
 import com.trak.mem.ui.theme.landingScreenOptionViewPadding
 import com.trak.mem.ui.theme.landingScreenSecondSpacer
 
-@ExperimentalFoundationApi
 @Composable
 fun LandingScreen(
     viewModel: LandingViewModel
@@ -61,7 +60,6 @@ fun LandingScreen(
     }
 }
 
-@ExperimentalFoundationApi
 @Preview(showSystemUi = true)
 @Composable
 fun LandingScreenPreview(

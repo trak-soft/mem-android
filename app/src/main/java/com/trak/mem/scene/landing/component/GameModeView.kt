@@ -1,6 +1,5 @@
-package com.trak.mem.landing.component
+package com.trak.mem.scene.landing.component
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -204,7 +203,6 @@ fun GamModeWidgetViewPreview(){
     }
 }
 
-@ExperimentalFoundationApi
 @Preview(name = "game mode menu option", widthDp = 145, heightDp = 145)
 @Composable
 fun MenuOptionGameModePreview(){

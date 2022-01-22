@@ -1,10 +1,10 @@
-package com.trak.mem.landing
+package com.trak.mem.scene.landing
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.trak.mem.R
-import com.trak.mem.landing.component.OptionType
+import com.trak.mem.scene.landing.component.OptionType
 
 class LandingViewModel : ViewModel(){
     private val _title = mutableStateOf("memory")

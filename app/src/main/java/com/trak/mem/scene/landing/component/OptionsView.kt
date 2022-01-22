@@ -1,4 +1,4 @@
-package com.trak.mem.landing.component
+package com.trak.mem.scene.landing.component
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.aspectRatio
@@ -33,7 +33,7 @@ sealed class OptionType{
  * @param options - list of optionType
  * @param rowCount - size of row
  */
-@ExperimentalFoundationApi
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OptionView(
     modifier: Modifier,
@@ -84,8 +84,7 @@ fun OptionView(
     }
 }
 
-@ExperimentalFoundationApi
-@Preview()
+@Preview
 @Composable
 fun OptionViewPreview(){
     MemandroidTheme(darkTheme = true) {

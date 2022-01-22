@@ -1,10 +1,8 @@
-package com.trak.mem.landing.component
+package com.trak.mem.scene.landing.component
 
 import androidx.compose.foundation.*
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -12,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import com.trak.mem.ui.theme.MemandroidTheme
 import com.trak.mem.ui.theme.menuOptionViewBoarderWidth
@@ -28,7 +25,7 @@ import com.trak.mem.ui.theme.menuOptionViewRoundedCorner
  * @param bgColor back ground color of composable
  * @param content child composable
  */
-@ExperimentalFoundationApi
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MenuOptionView(
     modifier: Modifier,
@@ -58,7 +55,6 @@ fun MenuOptionView(
     }
 }
 
-@ExperimentalFoundationApi
 @Preview(widthDp = 145, heightDp = 145)
 @Composable
 fun MenuOptionViewPreview(){

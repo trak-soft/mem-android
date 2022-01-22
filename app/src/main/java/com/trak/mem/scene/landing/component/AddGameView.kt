@@ -1,4 +1,4 @@
-package com.trak.mem.landing.component
+package com.trak.mem.scene.landing.component
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
