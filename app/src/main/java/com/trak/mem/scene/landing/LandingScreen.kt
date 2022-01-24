@@ -1,6 +1,5 @@
-package com.trak.mem.landing
+package com.trak.mem.scene.landing
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -13,20 +12,26 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.ramcosta.composedestinations.navigation.EmptyDestinationsNavigator
 import com.trak.mem.R
 import com.trak.mem.common.component.TitleView
-import com.trak.mem.landing.component.OptionType
-import com.trak.mem.landing.component.OptionView
+import com.trak.mem.scene.destinations.CreateScreenDestination
+import com.trak.mem.scene.destinations.PlayScreenDestination
+import com.trak.mem.scene.landing.component.OptionType
+import com.trak.mem.scene.landing.component.OptionView
 import com.trak.mem.ui.theme.MemandroidTheme
 import com.trak.mem.ui.theme.landingScreenFirstSpacer
 import com.trak.mem.ui.theme.landingScreenOptionViewPadding
 import com.trak.mem.ui.theme.landingScreenSecondSpacer
 
-@ExperimentalFoundationApi
+@Destination(start = true)
 @Composable
 fun LandingScreen(
-    viewModel: LandingViewModel
+    navigator: DestinationsNavigator
 ){
+    val viewModel = LandingViewModel()
     val scaffoldState = rememberScaffoldState()
 //    val scope = rememberCoroutineScope()
 
@@ -50,8 +55,16 @@ fun LandingScreen(
                 rowCount = 2,
                 onClick = { option ->
                     when (option) {
-                        is OptionType.Mode -> {}
-                        is OptionType.Add -> {}
+                        is OptionType.Mode -> {
+                            navigator.navigate(
+                                PlayScreenDestination()
+                            )
+                        }
+                        is OptionType.Add -> {
+                            navigator.navigate(
+                                CreateScreenDestination()
+                            )
+                        }
                     }
                 },
                 onHold = { option ->
@@ -61,7 +74,6 @@ fun LandingScreen(
     }
 }
 
-@ExperimentalFoundationApi
 @Preview(showSystemUi = true)
 @Composable
 fun LandingScreenPreview(
@@ -69,7 +81,7 @@ fun LandingScreenPreview(
 ){
     MemandroidTheme(darkTheme = true) {
         LandingScreen(
-            viewModel = LandingViewModel()
+            EmptyDestinationsNavigator
         )
     }
 }
