@@ -49,7 +49,11 @@ fun LandingScreen(
             Spacer(modifier = Modifier.size(landingScreenSecondSpacer))
             OptionView(
                 modifier = Modifier
-                    .padding(landingScreenOptionViewPadding),
+                    .padding(
+                        start = landingScreenOptionViewPadding,
+                        top = landingScreenOptionViewPadding,
+                        end = landingScreenOptionViewPadding
+                    ),
                 options = viewModel.options.value,
                 bgColor = MaterialTheme.colors.onSurface.copy(0.05f),
                 rowCount = 2,
@@ -79,7 +83,7 @@ fun LandingScreen(
 fun LandingScreenPreview(
 
 ){
-    MemandroidTheme(darkTheme = true) {
+    MemandroidTheme(darkTheme = false) {
         LandingScreen(
             EmptyDestinationsNavigator
         )
