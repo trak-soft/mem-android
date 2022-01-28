@@ -1,4 +1,4 @@
-package com.trak.mem.scene.landing.component
+package com.trak.mem.scene.home.component
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.aspectRatio
@@ -7,54 +7,52 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import com.trak.mem.R
+import com.trak.mem.common.component.model.OptionType
 import com.trak.mem.ui.theme.MemandroidTheme
 import com.trak.mem.ui.theme.optionViewPadding
 
 /**
- * Option type
- */
-sealed class OptionType{
-    data class Mode(val groupLength: Int,
-                    val preview: Boolean,
-                    val numOfGroup: Int,
-                    val timeLimit: Int?,
-                    val clickLimit: Int?) : OptionType()
-    object Add: OptionType()
-}
-
-/**
  * Option view
  *
- * @param options - list of optionType
- * @param rowCount - size of row
+ * @param options - list of optionType,
+ * @param rowCount - row count,
+ * @param backgroundColor - background color,
+ * @param tint - border color,
+ * @param onClick - on click action,
+ * @param onHold - on hold action,
+ * @param modifier - modifier
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OptionView(
-    modifier: Modifier,
     options : Set<OptionType>,
-    bgColor: Color,
     rowCount: Int,
+    backgroundColor: Color,
+    tint: Color,
     onClick: (OptionType) -> Unit,
-    onHold: (OptionType) -> Unit
+    onHold: (OptionType) -> Unit,
+    modifier: Modifier = Modifier,
 ){
     LazyVerticalGrid(
+        GridCells.Fixed(rowCount),
         modifier = modifier
             .fillMaxWidth(),
-        cells = GridCells.Fixed(rowCount)
     ) {
         items(options.toList()){ option ->
-            MenuOptionView(
+            OptionContentView(
+                backgroundColor,
+                tint,
                 modifier = Modifier
                     .fillMaxWidth(1f / rowCount)
                     .aspectRatio(1f)
                     .padding(optionViewPadding),
-                bgColor = bgColor,
                 onClick = {
                     onClick(option)
                 },
@@ -64,17 +62,19 @@ fun OptionView(
             ) {
                 when (option) {
                     is OptionType.Mode -> {
-                        GameModeView(
-                            modifier = Modifier,
-                            groupLength = option.groupLength,
-                            preview = option.preview,
-                            numOfGroup = option.numOfGroup,
-                            clickLimit = option.clickLimit,
-                            timeLimit = option.timeLimit
+                        OptionModeView(
+                            option.groupLength,
+                            option.preview,
+                            option.numOfGroup,
+                            option.clickLimit,
+                            option.timeLimit,
+                            tint = tint
                         )
                     }
                     is OptionType.Add -> {
-                        AddGameView(
+                        OptionImageView(
+                            R.drawable.ic_add_game,
+                            tint,
                             modifier = Modifier.align(Alignment.Center)
                         )
                     }
@@ -89,20 +89,18 @@ fun OptionView(
 fun OptionViewPreview(){
     MemandroidTheme(darkTheme = true) {
         OptionView(
-            modifier = Modifier,
-            options = setOf(
+            setOf(
                 OptionType.Add,
                 OptionType.Mode(2,  true,9, null, null),
                 OptionType.Mode(2,  true,9, null, 3),
                 OptionType.Mode(2,  true,9, 67, null),
-                OptionType.Mode(2,  true,9, 23, 11),
             ),
-            bgColor = Color.Transparent,
-            rowCount = 2,
+            2,
+            Color.Transparent,
+            MaterialTheme.colors.onSurface,
             onClick = {
             },
             onHold = {
-
             }
         )
     }

@@ -1,4 +1,4 @@
-package com.trak.mem.scene.landing.component
+package com.trak.mem.scene.home.component
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
@@ -18,47 +18,54 @@ import com.trak.mem.ui.theme.MemandroidTheme
 /**
  * Add Game component
  *
- * @param modifier
+ * @param icon - icon resource
+ * @param modifier - modifier
  */
 @Composable
-fun AddGameView(
-    modifier: Modifier,
-    image: Int = R.drawable.ic_add_game
+fun  OptionImageView(
+    icon: Int,
+    tint: Color,
+    modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = modifier
-        .wrapContentSize()
+        modifier
+            .wrapContentSize()
     ){
         Icon(
-            painter = painterResource(id = image),
-            contentDescription = stringResource(id = R.string.ic_add_game_content_description),
-            tint = MaterialTheme.colors.onSurface
+            painterResource(id = icon),
+            stringResource(id = R.string.ic_add_game_content_description),
+            tint = tint
         )
     }
 }
 
 @Preview(name = "add game")
 @Composable
-fun AddGameViewPreview(){
+fun OptionImageViewPreview(){
     MemandroidTheme(darkTheme = true) {
-        AddGameView(modifier = Modifier)
+        OptionImageView(
+            R.drawable.ic_add_game,
+            MaterialTheme.colors.onSurface
+        )
     }
 }
 
 @ExperimentalFoundationApi
 @Preview("menu option add game", widthDp = 145, heightDp = 145)
 @Composable
-fun MenuOptionViewAddGamePreview(){
+fun MenuOptionViewOptionImagePreview(){
     MemandroidTheme(darkTheme = true) {
-        MenuOptionView(
+        OptionContentView(
+            Color.Transparent,
+            MaterialTheme.colors.onSurface,
             modifier = Modifier,
-            bgColor = Color.Transparent,
             onClick = {},
             onHold = {}
         ){
-            AddGameView(
-                modifier = Modifier
-                .align(Alignment.Center)
+            OptionImageView(
+                R.drawable.ic_add_game,
+                MaterialTheme.colors.onSurface,
+                modifier = Modifier.align(Alignment.Center)
             )
         }
     }
