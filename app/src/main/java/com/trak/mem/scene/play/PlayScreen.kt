@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
@@ -20,7 +21,7 @@ import com.trak.mem.ui.theme.screenTopSpacer
 @Composable
 fun PlayScreen(
 ){
-    val viewModel = PlayViewModel()
+    val viewModel = PlayViewModel(tint = MaterialTheme.colors.onSurface)
     val scaffoldState = rememberScaffoldState()
 //    val scope = rememberCoroutineScope()
 
@@ -34,6 +35,7 @@ fun PlayScreen(
                 "play",
                 R.drawable.ic_time_limit,
                 stringResource(id = R.string.ic_add_game_content_description),
+                tint = viewModel.tint,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
             )
             Spacer(modifier = Modifier.fillMaxSize())
