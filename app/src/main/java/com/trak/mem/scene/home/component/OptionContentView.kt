@@ -1,4 +1,4 @@
-package com.trak.mem.scene.landing.component
+package com.trak.mem.scene.home.component
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.Box
@@ -16,20 +16,23 @@ import com.trak.mem.ui.theme.menuOptionViewBoarderWidth
 import com.trak.mem.ui.theme.menuOptionViewRoundedCorner
 
 /**
- * Generalize MenuOption Composable Component
+ * Generalize Option Content view
  *
- * draws the outline of the composable and take in a Composable content
+ * draws the outline of the component and takes a view as parameter
  * making menuOption more reusable
  *
- * @param modifier
- * @param bgColor back ground color of composable
- * @param content child composable
+ * @param backgroundColor - back ground color of composable
+ * @param modifier - modifier
+ * @param onClick - onclick action
+ * @param onHold - onHold action
+ * @param content - view to be rendered
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun MenuOptionView(
+fun OptionContentView(
+    backgroundColor: Color,
+    tint: Color,
     modifier: Modifier,
-    bgColor: Color,
     onClick: () -> Unit,
     onHold: () -> Unit,
     content: @Composable BoxScope.() -> Unit
@@ -41,14 +44,14 @@ fun MenuOptionView(
         )
     ){
         Box(
-            modifier = Modifier
+            Modifier
                 .clip(RoundedCornerShape(menuOptionViewRoundedCorner))
                 .border(
                     width = menuOptionViewBoarderWidth,
-                    color = MaterialTheme.colors.onSurface,
+                    color = tint,
                     shape = RoundedCornerShape(menuOptionViewRoundedCorner)
                 )
-                .background(color = bgColor)
+                .background(color = backgroundColor)
         ){
             content()
         }
@@ -57,11 +60,12 @@ fun MenuOptionView(
 
 @Preview(widthDp = 145, heightDp = 145)
 @Composable
-fun MenuOptionViewPreview(){
+fun MenuOptionContentViewPreview(){
     MemandroidTheme(darkTheme = true) {
-        MenuOptionView(
+        OptionContentView(
+            Color.Transparent,
+            MaterialTheme.colors.onSurface,
             modifier = Modifier,
-            bgColor = Color.Transparent,
             onClick = {},
             onHold = {}
         ) {

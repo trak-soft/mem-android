@@ -1,18 +1,21 @@
-package com.trak.mem.scene.landing
+package com.trak.mem.scene.home
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.trak.mem.R
-import com.trak.mem.scene.landing.component.OptionType
+import com.trak.mem.common.component.model.OptionType
 
-class LandingViewModel : ViewModel(){
-    private val _title = mutableStateOf("memory")
-    val title: State<String> = _title
-
-    private val _image = mutableStateOf(R.drawable.ic_brain)
-    val image : State<Int> = _image
-
+/**
+ * Home view model
+ */
+class HomeViewModel(
+    val title: String = "memory",
+    val icon: Int = R.drawable.ic_brain,
+    val tint: Color = Color.Black,
+    val optionColor: Color =  Color.Black
+) : ViewModel(){
     private val _options = mutableStateOf(setOf(
         OptionType.Add,
         OptionType.Mode(2,  true,9, null, null),

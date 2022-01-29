@@ -1,62 +1,55 @@
 package com.trak.mem.common.component
 
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.trak.mem.R
 import com.trak.mem.ui.theme.MemandroidTheme
+import com.trak.mem.ui.theme.titleViewImageSize
 import com.trak.mem.ui.theme.titleViewSpaceBetween
 
 /**
  * title view
  *
  * @param title - title text
- * @param image - image resource
+ * @param icon - icon resource
  * @param contentDescription - image content description
+ * @param modifier - modifier
  */
 @Composable
 fun TitleView(
-    modifier: Modifier,
     title: String,
-    image: Int,
-    contentDescription: String
+    icon: Int,
+    contentDescription: String,
+    tint: Color,
+    modifier: Modifier = Modifier,
 ){
-    Row(modifier = modifier.wrapContentSize()) {
-        Text(
-            title.uppercase(),
-            modifier = Modifier.align(Alignment.CenterVertically),
-            color = MaterialTheme.colors.onSurface,
-            style = MaterialTheme.typography.h4,
-        )
-        Spacer(modifier = Modifier.size(titleViewSpaceBetween))
-        Icon(
-            painter = painterResource(id = image),
-            contentDescription = contentDescription,
-            modifier = Modifier.align(Alignment.CenterVertically),
-            tint = MaterialTheme.colors.onSurface,
-        )
-    }
+    TextIconView(
+        title.uppercase(),
+        icon,
+        contentDescription,
+        tint = tint,
+        style = MaterialTheme.typography.h4,
+        imageSize = titleViewImageSize,
+        space = titleViewSpaceBetween,
+        modifier = modifier.wrapContentSize(),
+    )
 }
 
 @Preview
 @Composable
 fun TitleViewPreview(){
-    MemandroidTheme(darkTheme = false) {
+    MemandroidTheme(darkTheme = true) {
         TitleView(
+            stringResource(id = R.string.memory),
+            R.drawable.ic_brain,
+            stringResource(id = R.string.ic_memory_content_description),
+            tint = MaterialTheme.colors.onSurface,
             modifier = Modifier,
-            title = stringResource(id = R.string.memory),
-            image = R.drawable.ic_brain,
-            contentDescription = stringResource(id = R.string.ic_memory_content_description)
         )
     }
 

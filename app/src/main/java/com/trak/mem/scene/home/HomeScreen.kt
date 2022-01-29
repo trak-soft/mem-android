@@ -1,9 +1,6 @@
-package com.trak.mem.scene.landing
+package com.trak.mem.scene.home
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
@@ -17,62 +14,68 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.ramcosta.composedestinations.navigation.EmptyDestinationsNavigator
 import com.trak.mem.R
 import com.trak.mem.common.component.TitleView
-import com.trak.mem.scene.destinations.CreateScreenDestination
+import com.trak.mem.scene.destinations.EditScreenDestination
 import com.trak.mem.scene.destinations.PlayScreenDestination
-import com.trak.mem.scene.landing.component.OptionType
-import com.trak.mem.scene.landing.component.OptionView
+import com.trak.mem.scene.home.component.OptionView
+import com.trak.mem.common.component.model.OptionType
 import com.trak.mem.ui.theme.MemandroidTheme
-import com.trak.mem.ui.theme.landingScreenFirstSpacer
 import com.trak.mem.ui.theme.landingScreenOptionViewPadding
 import com.trak.mem.ui.theme.landingScreenSecondSpacer
+import com.trak.mem.ui.theme.screenTopSpacer
 
 @Destination(start = true)
 @Composable
-fun LandingScreen(
+fun HomeScreen(
     navigator: DestinationsNavigator
 ){
-    val viewModel = LandingViewModel()
+    val viewModel = HomeViewModel(
+        tint = MaterialTheme.colors.onSurface,
+        optionColor = MaterialTheme.colors.onSurface.copy(0.05f)
+    )
     val scaffoldState = rememberScaffoldState()
 //    val scope = rememberCoroutineScope()
 
     Scaffold(
         scaffoldState = scaffoldState,
+        modifier = Modifier.fillMaxSize()
     ) {
-        Column{
-            Spacer(modifier = Modifier.size(landingScreenFirstSpacer))
+        Column(modifier = Modifier.fillMaxSize()){
+            Spacer(modifier = Modifier.size(screenTopSpacer))
             TitleView(
+                viewModel.title,
+                viewModel.icon,
+                stringResource(id = R.string.ic_memory_content_description),
+                tint = viewModel.tint,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
-                title = viewModel.title.value,
-                image = viewModel.image.value,
-                contentDescription = stringResource(id = R.string.ic_memory_content_description)
             )
             Spacer(modifier = Modifier.size(landingScreenSecondSpacer))
             OptionView(
-                modifier = Modifier
-                    .padding(
-                        start = landingScreenOptionViewPadding,
-                        top = landingScreenOptionViewPadding,
-                        end = landingScreenOptionViewPadding
-                    ),
-                options = viewModel.options.value,
-                bgColor = MaterialTheme.colors.onSurface.copy(0.05f),
-                rowCount = 2,
+                viewModel.options.value,
+                2,
+                viewModel.optionColor,
+                tint = viewModel.tint,
                 onClick = { option ->
                     when (option) {
                         is OptionType.Mode -> {
                             navigator.navigate(
-                                PlayScreenDestination()
+                                PlayScreenDestination
                             )
                         }
                         is OptionType.Add -> {
                             navigator.navigate(
-                                CreateScreenDestination()
+                                EditScreenDestination
                             )
                         }
                     }
                 },
-                onHold = { option ->
-                }
+                onHold = {
+                },
+                modifier = Modifier
+                    .padding(
+                    start = landingScreenOptionViewPadding,
+                    top = landingScreenOptionViewPadding,
+                    end = landingScreenOptionViewPadding
+                ),
             )
         }
     }
@@ -80,11 +83,9 @@ fun LandingScreen(
 
 @Preview(showSystemUi = true)
 @Composable
-fun LandingScreenPreview(
-
-){
+fun HomeScreenPreview(){
     MemandroidTheme(darkTheme = false) {
-        LandingScreen(
+        HomeScreen(
             EmptyDestinationsNavigator
         )
     }
