@@ -34,7 +34,7 @@ fun TitleView(
         contentDescription,
         tint = tint,
         style = MaterialTheme.typography.h4,
-        imageSize = titleViewImageSize,
+        iconSize = titleViewImageSize,
         space = titleViewSpaceBetween,
         modifier = modifier.wrapContentSize(),
     )
