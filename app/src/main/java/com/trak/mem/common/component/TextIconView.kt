@@ -33,7 +33,7 @@ import com.trak.mem.ui.theme.MemandroidTheme
  * @param fontWeight - font weight
  * @param letterSpacing - spacing between letter
  * @param tint - Color of icon and image
- * @param imageSize - width and height of image
+ * @param iconSize - width and height of image
  *                  - if image size is null image size is default image size
  * @param space - space between text and image
  * @param visible -  is view visible
@@ -49,7 +49,7 @@ fun TextIconView(
     letterSpacing: TextUnit? = null,
     tint: Color? = null,
     style: TextStyle = LocalTextStyle.current,
-    imageSize: Dp? = null,
+    iconSize: Dp? = null,
     space: Dp = 0.dp,
     visible: Boolean = true,
 ) {
@@ -76,7 +76,7 @@ fun TextIconView(
             icon?.let {
                 var iconModifier = Modifier
                     .align(alignment = Alignment.CenterVertically)
-                imageSize?.let { iconModifier = iconModifier.size(it) }
+                iconSize?.let { iconModifier = iconModifier.size(it) }
                 Icon(
                     painterResource(id = icon),
                     contentDescription,
