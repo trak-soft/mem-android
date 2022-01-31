@@ -18,10 +18,10 @@ import com.trak.mem.common.component.TitleView
 import com.trak.mem.common.component.model.OptionType
 import com.trak.mem.scene.destinations.EditScreenDestination
 import com.trak.mem.scene.destinations.PlayScreenDestination
-import com.trak.mem.scene.home.component.OptionContentView
-import com.trak.mem.scene.home.component.OptionImageView
+import com.trak.mem.common.component.OptionContentView
+import com.trak.mem.common.component.OptionImageView
 import com.trak.mem.scene.home.component.OptionModeView
-import com.trak.mem.scene.play.component.GridView
+import com.trak.mem.common.component.GridView
 import com.trak.mem.ui.theme.MemandroidTheme
 import com.trak.mem.ui.theme.playScreenPadding
 import com.trak.mem.ui.theme.screenSecondSpacer

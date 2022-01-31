@@ -7,8 +7,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.trak.mem.R
+import com.trak.mem.common.component.OptionContentView
 import com.trak.mem.common.component.TextIconView
 import com.trak.mem.common.component.model.OptionType
 import com.trak.mem.ui.theme.MemandroidTheme

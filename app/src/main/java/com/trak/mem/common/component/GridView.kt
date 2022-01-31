@@ -1,4 +1,4 @@
- package com.trak.mem.scene.play.component
+package com.trak.mem.common.component
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.border

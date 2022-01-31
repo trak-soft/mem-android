@@ -1,7 +1,6 @@
 package com.trak.mem.scene.play
 
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
@@ -18,10 +17,10 @@ class PlayViewModel(
     private val _icons = mutableStateOf(listOf<Int>())
     val icons: MutableState<List<Int>> = _icons
 
-    private val _timeLeft = mutableStateOf<Long?>(gameMode.timeLimit?.toLong())
+    private val _timeLeft = mutableStateOf(gameMode.timeLimit?.toLong())
     val timeLeft: MutableState<Long?> = _timeLeft
 
-    private val _clicksLeft = mutableStateOf<Int?>(gameMode.clickLimit)
+    private val _clicksLeft = mutableStateOf(gameMode.clickLimit)
     val clicksLeft: MutableState<Int?> = _clicksLeft
 
     init {

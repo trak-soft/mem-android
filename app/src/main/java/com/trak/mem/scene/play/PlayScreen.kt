@@ -12,9 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.ramcosta.composedestinations.annotation.Destination
 import com.trak.mem.common.component.model.OptionType
-import com.trak.mem.scene.home.component.OptionContentView
-import com.trak.mem.scene.home.component.OptionImageView
-import com.trak.mem.scene.play.component.GridView
+import com.trak.mem.common.component.OptionContentView
+import com.trak.mem.common.component.OptionImageView
+import com.trak.mem.common.component.GridView
 import com.trak.mem.scene.play.component.HeaderView
 import com.trak.mem.ui.theme.MemandroidTheme
 import com.trak.mem.ui.theme.playScreenPadding
@@ -39,7 +39,7 @@ fun PlayScreen(
     ) {
             Box(modifier = Modifier.fillMaxSize()){
                 viewModel.mode.value.timeLimit?.let { timeLimit ->
-                    var timeleft = viewModel.timeLeft.value
+                    val timeleft = viewModel.timeLeft.value
                     timeleft?.let{
                         Box(modifier = Modifier.align(Alignment.BottomCenter)
                             .fillMaxWidth()
