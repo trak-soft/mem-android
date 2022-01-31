@@ -1,47 +1,47 @@
-package com.trak.mem.scene.play.component
+package com.trak.mem.common.component
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.MaterialTheme
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.trak.mem.R
-import com.trak.mem.scene.home.component.OptionContentView
-import com.trak.mem.scene.home.component.OptionImageView
 import kotlin.math.abs
+import kotlin.math.ceil
 import kotlin.math.sqrt
 
 /**
  * creates a grid view based on the contents and size of icon
  *
- * @param icons - icons,
- * @param tint - tint,
- * @param backGroundColor - Color
- * @param onClick - onClick action
+ * @param size - size of list
  * @param modifier - modifier
+ * @param content - of grid
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun GridView(
-    icons: MutableList<Int>,
-    tint: Color,
-    backGroundColor: Color,
-    onClick : (Int) -> Unit,
+    size: Int,
     modifier: Modifier = Modifier,
+    padding: Dp = 3.dp,
+    inf: Boolean = false,
+    rowCount: Int? = null,
+    content: @Composable BoxScope.(index: Int, modifier: Modifier) -> Unit,
 ){
     BoxWithConstraints(modifier = modifier){
         val cw = constraints.maxWidth.toFloat()
         val ch = constraints.maxHeight.toFloat()
         val ratio = cw / ch
-        val (row, column) = getRowColumn(icons.size, ratio,0.3f)
+        var (row, column) = getRowColumn(size, ratio,0.3f)
+        row  = (rowCount ?: row)
+        rowCount?.let {
+            column = ceil(size / row.toFloat()).toInt()
+        }
         val length = row * column
 
         LazyVerticalGrid(
@@ -49,49 +49,37 @@ fun GridView(
             modifier = Modifier
                 .matchParentSize()
         ) {
-            items(icons.size) {
-                val w = cw / row
-                OptionContentView(
-                    backgroundColor = backGroundColor,
-                    tint = tint,
-                    modifier = Modifier
-                        .fillParentMaxHeight(1f / ((length) / row))
-                        .fillMaxWidth(1f / row)
-                        .aspectRatio(1f, w * ((length) / row) > ch)
-                        .padding(3.dp),
-                    onClick = { onClick(it) },
-                    onHold = {}
-                ) {
-                    OptionImageView(
-                        icon = icons[it],
-                        contentDescription = "",
-                        tint = MaterialTheme.colors.onSurface,
-                        modifier = Modifier.align(Alignment.Center)
-                    )
+            items(size) {
+                var mod =  modifier
+                if (!inf){
+                    mod = mod.fillParentMaxHeight(1f / ((length) / row))
                 }
+                val w = cw / row
+                content(
+                    it,
+                    modifier = mod
+                        .fillMaxWidth(1f / row)
+                        .aspectRatio(1f, (w * ((length) / row) > ch) && !inf)
+                        .padding(padding),
+                )
             }
         }
     }
 }
 
-@Preview(showSystemUi = true)
+//@Preview
 @Composable
 fun GridViewPreview(
 ){
     Box(modifier = Modifier.fillMaxSize()){
-        GridView(icons = mutableListOf<Int>().apply {
-            for (i in 1..2 ) {
-                add(R.drawable.ic_brain)
-            }
-        },
-            tint = MaterialTheme.colors.onSurface,
-            backGroundColor = MaterialTheme.colors.onSurface.copy(0.05f),
-            onClick = {},
-            modifier = Modifier
-                .fillMaxWidth(0.9f)
-                .fillMaxHeight(0.7f)
-                .align(Alignment.Center)
-        )
+        GridView(
+            4
+        ){ index, modifier ->
+            Text(
+                index.toString(),
+                modifier = modifier.border(3.dp,Color.Red, RoundedCornerShape(3.dp))
+            )
+        }
     }
 }
 

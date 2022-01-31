@@ -5,22 +5,26 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.ramcosta.composedestinations.navigation.EmptyDestinationsNavigator
 import com.trak.mem.R
 import com.trak.mem.common.component.TitleView
+import com.trak.mem.common.component.model.OptionType
 import com.trak.mem.scene.destinations.EditScreenDestination
 import com.trak.mem.scene.destinations.PlayScreenDestination
-import com.trak.mem.scene.home.component.OptionView
-import com.trak.mem.common.component.model.OptionType
+import com.trak.mem.common.component.OptionContentView
+import com.trak.mem.common.component.OptionImageView
+import com.trak.mem.scene.home.component.OptionModeView
+import com.trak.mem.common.component.GridView
 import com.trak.mem.ui.theme.MemandroidTheme
-import com.trak.mem.ui.theme.landingScreenOptionViewPadding
-import com.trak.mem.ui.theme.landingScreenSecondSpacer
+import com.trak.mem.ui.theme.playScreenPadding
+import com.trak.mem.ui.theme.screenSecondSpacer
 import com.trak.mem.ui.theme.screenTopSpacer
 
 @Destination(start = true)
@@ -33,13 +37,16 @@ fun HomeScreen(
         optionColor = MaterialTheme.colors.onSurface.copy(0.05f)
     )
     val scaffoldState = rememberScaffoldState()
-//    val scope = rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     Scaffold(
         scaffoldState = scaffoldState,
         modifier = Modifier.fillMaxSize()
     ) {
-        Column(modifier = Modifier.fillMaxSize()){
+        Column(modifier = Modifier
+                .fillMaxSize()
+                .padding(start = playScreenPadding, end = playScreenPadding)
+        ){
             Spacer(modifier = Modifier.size(screenTopSpacer))
             TitleView(
                 viewModel.title,
@@ -48,35 +55,60 @@ fun HomeScreen(
                 tint = viewModel.tint,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
             )
-            Spacer(modifier = Modifier.size(landingScreenSecondSpacer))
-            OptionView(
-                viewModel.options.value,
-                2,
-                viewModel.optionColor,
-                tint = viewModel.tint,
-                onClick = { option ->
-                    when (option) {
-                        is OptionType.Mode -> {
-                            navigator.navigate(
-                                PlayScreenDestination
-                            )
-                        }
-                        is OptionType.Add -> {
+            Spacer(modifier = Modifier.size(screenSecondSpacer))
+            Box(modifier = Modifier){
+                GridView(viewModel.options.value.size,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .align(Alignment.Center),
+                    padding = 10.dp,
+                    inf = true,
+                    rowCount = 2
+                ){ index, modifier->
+                    val option = viewModel.options.value.toList()[index]
+                    OptionContentView(
+                        viewModel.optionColor,
+                        viewModel.tint,
+                        modifier = modifier,
+                        onClick = {
+                            when (option) {
+                                is OptionType.Mode -> {
+                                    navigator.navigate(
+                                        PlayScreenDestination(mode = option)
+                                    )
+                                }
+                                is OptionType.Add -> {
+                                    navigator.navigate(
+                                        EditScreenDestination
+                                    )
+                                }
+                            }
+                        },
+                        onHold = {
                             navigator.navigate(
                                 EditScreenDestination
                             )
                         }
+                    ) {
+                        when (option) {
+                            is OptionType.Mode -> {
+                                OptionModeView(
+                                    option,
+                                    tint = viewModel.tint
+                                )
+                            }
+                            is OptionType.Add -> {
+                                OptionImageView(
+                                    R.drawable.ic_add_game,
+                                    contentDescription = stringResource(id = R.string.ic_add_game_content_description),
+                                    tint = viewModel.tint,
+                                    modifier = Modifier.align(Alignment.Center)
+                                )
+                            }
+                        }
                     }
-                },
-                onHold = {
-                },
-                modifier = Modifier
-                    .padding(
-                    start = landingScreenOptionViewPadding,
-                    top = landingScreenOptionViewPadding,
-                    end = landingScreenOptionViewPadding
-                ),
-            )
+                }
+            }
         }
     }
 }

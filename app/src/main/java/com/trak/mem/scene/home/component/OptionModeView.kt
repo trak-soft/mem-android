@@ -7,9 +7,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.trak.mem.R
+import com.trak.mem.common.component.OptionContentView
 import com.trak.mem.common.component.TextIconView
+import com.trak.mem.common.component.model.OptionType
 import com.trak.mem.ui.theme.MemandroidTheme
 import com.trak.mem.ui.theme.gameModePaddingViewPadding
 
@@ -26,11 +27,7 @@ import com.trak.mem.ui.theme.gameModePaddingViewPadding
  */
 @Composable
 fun OptionModeView(
-    groupLength: Int,
-    preview: Boolean,
-    numOfGroup: Int,
-    timeLimit: Int?,
-    clickLimit: Int?,
+    mode: OptionType.Mode,
     modifier: Modifier = Modifier,
     tint: Color = MaterialTheme.colors.onSurface,
 ){
@@ -44,30 +41,30 @@ fun OptionModeView(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             TextIconView(
-                groupLength.toString(),
+                mode.groupLength.toString(),
                 R.drawable.ic_group_length,
                 stringResource(
                     R.string.ic_group_length_content_description,
-                    groupLength
+                    mode.groupLength
                 ),
                 tint = tint
             )
             TextIconView(
                 null,
-                if (preview) R.drawable.ic_preview else R.drawable.ic_no_preview,
+                if (mode.preview) R.drawable.ic_preview else R.drawable.ic_no_preview,
                 stringResource(
-                    if (preview)
+                    if (mode.preview)
                         R.string.ic_preview_content_description
                     else R.string.ic_no_preview_content_description
                 ),
                 tint = tint
             )
             TextIconView(
-                numOfGroup.toString(),
+                mode.numOfGroup.toString(),
                 R.drawable.ic_num_of_group,
                 stringResource(
                     R.string.ic_group_length_content_description,
-                    numOfGroup
+                    mode.numOfGroup
                 ),
                 tint = tint
             )
@@ -79,26 +76,25 @@ fun OptionModeView(
                 .align(Alignment.BottomCenter),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-
             TextIconView(
-                timeLimit.toString(),
-                R.drawable.ic_time_limit,
-                stringResource(
-                    R.string.ic_time_limit_content_description,
-                    timeLimit ?: 0
-                ),
-                tint = tint,
-                visible = timeLimit != null,
-            )
-            TextIconView(
-                clickLimit.toString(),
+                mode.clickLimit.toString(),
                 R.drawable.ic_click_limit,
                 stringResource(
                     R.string.ic_click_limit_content_description,
-                    clickLimit ?: 0
+                    mode.clickLimit ?: 0
                 ),
                 tint = tint,
-                visible = clickLimit != null,
+                visible = mode.clickLimit != null,
+            )
+            TextIconView(
+                mode.timeLimit.toString(),
+                R.drawable.ic_time_limit,
+                stringResource(
+                    R.string.ic_time_limit_content_description,
+                    mode.timeLimit ?: 0
+                ),
+                tint = tint,
+                visible = mode.timeLimit != null,
             )
         }
     }
@@ -116,11 +112,13 @@ fun MenuOptionGameModePreview(){
             onHold = {}
         ) {
             OptionModeView(
+                OptionType.Mode(
                 3,
                 true,
                 2,
                 null,
                 4,
+                )
             )
         }
     }
@@ -131,11 +129,13 @@ fun MenuOptionGameModePreview(){
 fun GameModeViewPreview(){
     MemandroidTheme(darkTheme = true) {
         OptionModeView(
+            OptionType.Mode(
             3,
             true,
             2,
             32,
             24,
+            )
         )
     }
 }

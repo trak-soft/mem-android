@@ -19,8 +19,8 @@ import com.trak.mem.common.component.TextIconView
 
 @Composable
 fun HeaderView(
-    clickLimit: Int,
-    timeLimit: Int,
+    clickLimit: Int?,
+    timeLimit: Int?,
     onReset: () -> Unit,
     tint: Color,
     modifier: Modifier = Modifier
@@ -31,12 +31,12 @@ fun HeaderView(
         modifier = modifier,
     ) {
         TextIconView(
-            clickLimit.toString(),
+            (clickLimit ?: "  ").toString(),
             R.drawable.ic_click_limit,
             stringResource(id = R.string.ic_click_limit_content_description),
             fontSize = 32.sp,
             iconSize = 32.dp,
-            tint = tint
+            tint = tint,
         )
         Icon(
             painter = painterResource(id = R.drawable.ic_reset),
@@ -47,12 +47,12 @@ fun HeaderView(
             }
         )
         TextIconView(
-            timeLimit.toString(),
+            (timeLimit ?: "  ").toString(),
             R.drawable.ic_time_limit,
             stringResource(id = R.string.ic_time_limit_content_description),
             fontSize = 32.sp,
             iconSize = 32.dp,
-            tint = tint
+            tint = tint,
         )
     }
 }
