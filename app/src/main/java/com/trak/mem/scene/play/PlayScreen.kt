@@ -42,7 +42,7 @@ fun PlayScreen(
         }
     }
 }
-@Preview(showSystemUi = true)
+//@Preview(showSystemUi = true)
 @Composable
 fun PlayScreenPreview(
 ){

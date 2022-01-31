@@ -44,7 +44,7 @@ fun EditScreen(
         }
     }
 }
-@Preview(showSystemUi = true)
+//@Preview(showSystemUi = true)
 @Composable
 fun EditScreenPreview(
 ){
