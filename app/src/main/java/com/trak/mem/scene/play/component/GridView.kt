@@ -1,11 +1,9 @@
 package com.trak.mem.scene.play.component
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,7 +29,7 @@ import kotlin.math.sqrt
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun GridView(
-    icons: MutableList<Int>,
+    icons: List<Int>,
     tint: Color,
     backGroundColor: Color,
     onClick : (Int) -> Unit,
@@ -74,7 +72,7 @@ fun GridView(
     }
 }
 
-@Preview(showSystemUi = true)
+//@Preview(showSystemUi = true)
 @Composable
 fun GridViewPreview(
 ){

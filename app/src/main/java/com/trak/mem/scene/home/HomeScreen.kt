@@ -58,7 +58,7 @@ fun HomeScreen(
                     when (option) {
                         is OptionType.Mode -> {
                             navigator.navigate(
-                                PlayScreenDestination
+                                PlayScreenDestination(mode = option)
                             )
                         }
                         is OptionType.Add -> {

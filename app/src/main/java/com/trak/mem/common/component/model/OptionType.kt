@@ -1,13 +1,18 @@
 package com.trak.mem.common.component.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 /**
  * Option type
  */
 sealed class OptionType{
+    @Parcelize
     data class Mode(val groupLength: Int,
                     val preview: Boolean,
                     val numOfGroup: Int,
-                    val timeLimit: Int?,
-                    val clickLimit: Int?) : OptionType()
+                    val clickLimit: Int?,
+                    val timeLimit: Int?) : OptionType(), Parcelable
+
     object Add: OptionType()
 }

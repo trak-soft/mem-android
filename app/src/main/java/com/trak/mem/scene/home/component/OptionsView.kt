@@ -64,11 +64,7 @@ fun OptionView(
                 when (option) {
                     is OptionType.Mode -> {
                         OptionModeView(
-                            option.groupLength,
-                            option.preview,
-                            option.numOfGroup,
-                            option.clickLimit,
-                            option.timeLimit,
+                            option,
                             tint = tint
                         )
                     }
