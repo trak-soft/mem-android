@@ -104,7 +104,7 @@ fun OptionModeView(
     }
 }
 
-@Preview(name = "game mode menu option", widthDp = 145, heightDp = 145)
+//@Preview(name = "game mode menu option", widthDp = 145, heightDp = 145)
 @Composable
 fun MenuOptionGameModePreview(){
     MemandroidTheme(darkTheme = true) {
@@ -126,7 +126,7 @@ fun MenuOptionGameModePreview(){
     }
 }
 
-@Preview(name = "menu option game mode", widthDp = 145, heightDp = 145)
+//@Preview(name = "menu option game mode", widthDp = 145, heightDp = 145)
 @Composable
 fun GameModeViewPreview(){
     MemandroidTheme(darkTheme = true) {

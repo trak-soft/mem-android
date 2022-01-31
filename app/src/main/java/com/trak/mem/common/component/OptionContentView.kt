@@ -58,7 +58,7 @@ fun OptionContentView(
     }
 }
 
-@Preview(widthDp = 145, heightDp = 145)
+//@Preview(widthDp = 145, heightDp = 145)
 @Composable
 fun MenuOptionContentViewPreview(){
     MemandroidTheme(darkTheme = true) {

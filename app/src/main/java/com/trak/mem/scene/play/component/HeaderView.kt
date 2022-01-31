@@ -57,7 +57,7 @@ fun HeaderView(
     }
 }
 
-@Preview()
+//@Preview()
 @Composable
 fun HeaderViewPreview(){
         HeaderView(

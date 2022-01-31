@@ -81,7 +81,7 @@ fun HomeScreen(
     }
 }
 
-@Preview(showSystemUi = true)
+//@Preview(showSystemUi = true)
 @Composable
 fun HomeScreenPreview(){
     MemandroidTheme(darkTheme = false) {

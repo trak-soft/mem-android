@@ -1,5 +1,6 @@
 package com.trak.mem.scene.home.component
 
+import android.accounts.AuthenticatorDescription
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.wrapContentSize
@@ -19,11 +20,14 @@ import com.trak.mem.ui.theme.MemandroidTheme
  * Add Game component
  *
  * @param icon - icon resource
+ * @param contentDescription - icon content description
+ * @param tint - icon tint color
  * @param modifier - modifier
  */
 @Composable
 fun  OptionImageView(
     icon: Int,
+    contentDescription: String,
     tint: Color,
     modifier: Modifier = Modifier
 ) {
@@ -33,25 +37,26 @@ fun  OptionImageView(
     ){
         Icon(
             painterResource(id = icon),
-            stringResource(id = R.string.ic_add_game_content_description),
+            contentDescription,
             tint = tint
         )
     }
 }
 
-@Preview(name = "add game")
+//@Preview(name = "add game")
 @Composable
 fun OptionImageViewPreview(){
     MemandroidTheme(darkTheme = true) {
         OptionImageView(
             R.drawable.ic_add_game,
-            MaterialTheme.colors.onSurface
+            contentDescription = stringResource(id = R.string.ic_add_game_content_description),
+            tint = MaterialTheme.colors.onSurface
         )
     }
 }
 
 @ExperimentalFoundationApi
-@Preview("menu option add game", widthDp = 145, heightDp = 145)
+//@Preview("menu option add game", widthDp = 145, heightDp = 145)
 @Composable
 fun MenuOptionViewOptionImagePreview(){
     MemandroidTheme(darkTheme = true) {
@@ -64,7 +69,8 @@ fun MenuOptionViewOptionImagePreview(){
         ){
             OptionImageView(
                 R.drawable.ic_add_game,
-                MaterialTheme.colors.onSurface,
+                contentDescription = stringResource(id = R.string.ic_add_game_content_description),
+                tint = MaterialTheme.colors.onSurface,
                 modifier = Modifier.align(Alignment.Center)
             )
         }
