@@ -2,7 +2,6 @@ package com.trak.mem.scene.play
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
@@ -10,18 +9,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.ramcosta.composedestinations.annotation.Destination
-import com.trak.mem.R
-import com.trak.mem.common.component.TitleView
 import com.trak.mem.common.component.model.OptionType
-import com.trak.mem.scene.home.component.OptionModeView
+import com.trak.mem.scene.home.component.OptionContentView
+import com.trak.mem.scene.home.component.OptionImageView
 import com.trak.mem.scene.play.component.GridView
 import com.trak.mem.scene.play.component.HeaderView
 import com.trak.mem.ui.theme.MemandroidTheme
+import com.trak.mem.ui.theme.playScreenPadding
+import com.trak.mem.ui.theme.screenSecondSpacer
 import com.trak.mem.ui.theme.screenTopSpacer
 
 @Destination
@@ -41,12 +38,9 @@ fun PlayScreen(
         modifier = Modifier.fillMaxSize()
     ) {
             Box(modifier = Modifier.fillMaxSize()){
-                println(viewModel.mode.value.timeLimit)
-                println(viewModel.timeLeft.value)
                 viewModel.mode.value.timeLimit?.let { timeLimit ->
                     var timeleft = viewModel.timeLeft.value
                     timeleft?.let{
-                        println(timeleft / timeLimit.toFloat())
                         Box(modifier = Modifier.align(Alignment.BottomCenter)
                             .fillMaxWidth()
                             .fillMaxHeight(timeleft / timeLimit.toFloat())
@@ -57,7 +51,7 @@ fun PlayScreen(
 
                 Column(modifier = Modifier
                     .fillMaxSize()
-                    .padding(start = 30.dp, end = 30.dp, bottom = 30.dp)
+                    .padding(start = playScreenPadding, end = playScreenPadding)
                 ){
                     Spacer(modifier = Modifier.size(screenTopSpacer))
                     HeaderView(
@@ -67,21 +61,34 @@ fun PlayScreen(
                         viewModel.tint,
                         modifier = Modifier.fillMaxWidth()
                     )
-                    Spacer(modifier = Modifier.size(30.dp))
+                    Spacer(modifier = Modifier.size(screenSecondSpacer))
                     Box(modifier = Modifier
                     ){
-                        GridView(icons = viewModel.icons.value,
-                            tint = viewModel.tint,
-                            backGroundColor = viewModel.tint.copy(0.05f),
-                            onClick = {},
+                        GridView(viewModel.icons.value.size,
                             modifier = Modifier
                                 .fillMaxSize()
-                                .align(Alignment.Center)
-                        )
+                                .align(Alignment.Center),
+                            inf = false,
+                            rowCount = null,
+                        ){ index, modifier->
+                            OptionContentView(
+                                backgroundColor = viewModel.tint.copy(0.05f),
+                                tint = viewModel.tint,
+                                modifier = modifier,
+                                onClick = { },
+                                onHold = { }
+                            ) {
+                                OptionImageView(
+                                    icon = viewModel.icons.value[index],
+                                    contentDescription = "",
+                                    tint = MaterialTheme.colors.onSurface,
+                                    modifier = Modifier.align(Alignment.Center)
+                                )
+                            }
+                        }
                     }
                 }
             }
-
     }
 }
 @Preview(showSystemUi = true)

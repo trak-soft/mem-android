@@ -41,11 +41,10 @@ fun OptionContentView(
         modifier = modifier.combinedClickable(
             onClick = onClick,
             onLongClick = onHold,
-        )
+        ).clip(RoundedCornerShape(menuOptionViewRoundedCorner))
     ){
         Box(
             Modifier
-                .clip(RoundedCornerShape(menuOptionViewRoundedCorner))
                 .border(
                     width = menuOptionViewBoarderWidth,
                     color = tint,
