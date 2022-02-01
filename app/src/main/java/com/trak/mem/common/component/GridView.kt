@@ -42,7 +42,6 @@ fun GridView(
         rowCount?.let {
             column = ceil(size / row.toFloat()).toInt()
         }
-        val length = row * column
 
         LazyVerticalGrid(
             cells = GridCells.Fixed(row),
@@ -52,14 +51,14 @@ fun GridView(
             items(size) {
                 var mod =  modifier
                 if (!inf){
-                    mod = mod.fillParentMaxHeight(1f / ((length) / row))
+                    mod = mod.fillParentMaxHeight(1f / column)
                 }
                 val w = cw / row
                 content(
                     it,
                     modifier = mod
                         .fillMaxWidth(1f / row)
-                        .aspectRatio(1f, (w * ((length) / row) > ch) && !inf)
+                        .aspectRatio(1f, (w * column > ch) && !inf)
                         .padding(padding),
                 )
             }
