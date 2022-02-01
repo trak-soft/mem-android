@@ -17,7 +17,7 @@ import com.trak.mem.common.component.OptionImageView
 import com.trak.mem.common.component.GridView
 import com.trak.mem.scene.play.component.HeaderView
 import com.trak.mem.ui.theme.MemandroidTheme
-import com.trak.mem.ui.theme.playScreenPadding
+import com.trak.mem.ui.theme.screenPadding
 import com.trak.mem.ui.theme.screenSecondSpacer
 import com.trak.mem.ui.theme.screenTopSpacer
 
@@ -38,7 +38,7 @@ fun PlayScreen(
         modifier = Modifier.fillMaxSize()
     ) {
             Box(modifier = Modifier.fillMaxSize()){
-                viewModel.mode.value.timeLimit?.let { timeLimit ->
+                viewModel.mode.timeLimit?.let { timeLimit ->
                     val timeleft = viewModel.timeLeft.value
                     timeleft?.let{
                         Box(modifier = Modifier.align(Alignment.BottomCenter)
@@ -51,12 +51,12 @@ fun PlayScreen(
 
                 Column(modifier = Modifier
                     .fillMaxSize()
-                    .padding(start = playScreenPadding, end = playScreenPadding)
+                    .padding(start = screenPadding, end = screenPadding)
                 ){
                     Spacer(modifier = Modifier.size(screenTopSpacer))
                     HeaderView(
-                        viewModel.mode.value.clickLimit,
-                        viewModel.mode.value.timeLimit,
+                        viewModel.mode.clickLimit,
+                        viewModel.mode.timeLimit,
                         {},
                         viewModel.tint,
                         modifier = Modifier.fillMaxWidth()

@@ -23,7 +23,7 @@ import com.trak.mem.common.component.OptionImageView
 import com.trak.mem.scene.home.component.OptionModeView
 import com.trak.mem.common.component.GridView
 import com.trak.mem.ui.theme.MemandroidTheme
-import com.trak.mem.ui.theme.playScreenPadding
+import com.trak.mem.ui.theme.screenPadding
 import com.trak.mem.ui.theme.screenSecondSpacer
 import com.trak.mem.ui.theme.screenTopSpacer
 
@@ -45,7 +45,7 @@ fun HomeScreen(
     ) {
         Column(modifier = Modifier
                 .fillMaxSize()
-                .padding(start = playScreenPadding, end = playScreenPadding)
+                .padding(start = screenPadding, end = screenPadding)
         ){
             Spacer(modifier = Modifier.size(screenTopSpacer))
             TitleView(
