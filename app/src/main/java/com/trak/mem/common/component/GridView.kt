@@ -38,6 +38,8 @@ fun GridView(
         val ch = constraints.maxHeight.toFloat()
         val ratio = cw / ch
         var (row, column) = getRowColumn(size, ratio,0.3f)
+        println(listOf(row,column)+"asdsads")
+        println(listOf(cw,ch))
         row  = (rowCount ?: row)
         rowCount?.let {
             column = ceil(size / row.toFloat()).toInt()
@@ -103,11 +105,13 @@ fun getRowColumn(
     while (i <= sqrt(length.toDouble())) {
         if (length % i == 0) {
             if (length / i != i) {
-                col = length/i
-                val new = abs((i/(col.toFloat())) - ratio)
+                val tcol = length/i
+                print("ratio:$ratio - ${i/tcol.toFloat()} all: ${listOf(i,tcol)}")
+                val new = abs((i/(tcol.toFloat())) - ratio)
                 if (new < diff) {
                     diff = new
                     row = i
+                    col = tcol
                 }
             }
         }

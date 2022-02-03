@@ -10,6 +10,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.trak.mem.common.component.model.OptionType
 import com.trak.mem.common.component.OptionContentView
@@ -62,14 +63,11 @@ fun PlayScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
                     Spacer(modifier = Modifier.size(screenSecondSpacer))
-                    Box(modifier = Modifier
-                    ){
+                    Box(modifier = Modifier.padding(bottom = 100.dp)){
                         GridView(viewModel.icons.value.size,
                             modifier = Modifier
                                 .fillMaxSize()
-                                .align(Alignment.Center),
-                            inf = false,
-                            rowCount = null,
+                                .align(Alignment.Center)
                         ){ index, modifier->
                             OptionContentView(
                                 backgroundColor = viewModel.tint.copy(0.05f),
