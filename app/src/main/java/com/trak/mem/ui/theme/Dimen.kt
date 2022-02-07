@@ -10,5 +10,6 @@ val titleViewImageSize = 18.dp
 val optionViewPadding = 15.dp
 val screenTopSpacer = 70.dp
 val screenSecondSpacer = 30.dp
+val screenBottomPadding = 100.dp
 val landingScreenOptionViewPadding = 20.dp
 val screenPadding = 30.dp

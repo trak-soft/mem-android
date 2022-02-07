@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.trak.mem.R
-import com.trak.mem.common.component.model.OptionType
+import com.trak.mem.common.model.OptionType
 
 class PlayViewModel(
     val mode:  OptionType.Mode,

@@ -18,7 +18,7 @@ import com.trak.mem.common.component.TitleView
 import com.trak.mem.ui.theme.screenTopSpacer
 
 /**
- * create Screen
+ * Edit Screen
  */
 @Destination
 @Composable

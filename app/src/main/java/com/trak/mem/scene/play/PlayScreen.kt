@@ -12,16 +12,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ramcosta.composedestinations.annotation.Destination
-import com.trak.mem.common.component.model.OptionType
+import com.trak.mem.common.model.OptionType
 import com.trak.mem.common.component.OptionContentView
 import com.trak.mem.common.component.OptionImageView
 import com.trak.mem.common.component.GridView
 import com.trak.mem.scene.play.component.HeaderView
-import com.trak.mem.ui.theme.MemandroidTheme
-import com.trak.mem.ui.theme.screenPadding
-import com.trak.mem.ui.theme.screenSecondSpacer
-import com.trak.mem.ui.theme.screenTopSpacer
+import com.trak.mem.ui.theme.*
 
+/**
+ * play screen
+ */
 @Destination
 @Composable
 fun PlayScreen(
@@ -40,11 +40,11 @@ fun PlayScreen(
     ) {
             Box(modifier = Modifier.fillMaxSize()){
                 viewModel.mode.timeLimit?.let { timeLimit ->
-                    val timeleft = viewModel.timeLeft.value
-                    timeleft?.let{
+                    val timeLeft = viewModel.timeLeft.value
+                    timeLeft?.let{
                         Box(modifier = Modifier.align(Alignment.BottomCenter)
                             .fillMaxWidth()
-                            .fillMaxHeight(timeleft / timeLimit.toFloat())
+                            .fillMaxHeight(it / timeLimit.toFloat())
                             .background(viewModel.tint.copy(0.05f))
                         )
                     }
@@ -53,22 +53,23 @@ fun PlayScreen(
                 Column(modifier = Modifier
                     .fillMaxSize()
                     .padding(start = screenPadding, end = screenPadding)
-                ){
+                ) {
                     Spacer(modifier = Modifier.size(screenTopSpacer))
                     HeaderView(
-                        viewModel.mode.clickLimit,
-                        viewModel.mode.timeLimit,
+                        viewModel.clicksLeft.value,
+                        viewModel.timeLeft.value,
                         {},
                         viewModel.tint,
                         modifier = Modifier.fillMaxWidth()
                     )
                     Spacer(modifier = Modifier.size(screenSecondSpacer))
-                    Box(modifier = Modifier.padding(bottom = 100.dp)){
-                        GridView(viewModel.icons.value.size,
+                    Box(modifier = Modifier.padding(bottom = screenBottomPadding)){
+                        GridView(
+                            viewModel.icons.value.size,
                             modifier = Modifier
                                 .fillMaxSize()
                                 .align(Alignment.Center)
-                        ){ index, modifier->
+                        ) { index, modifier ->
                             OptionContentView(
                                 backgroundColor = viewModel.tint.copy(0.05f),
                                 tint = viewModel.tint,

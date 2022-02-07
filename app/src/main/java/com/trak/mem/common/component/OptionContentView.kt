@@ -20,7 +20,7 @@ import com.trak.mem.ui.theme.menuOptionViewRoundedCorner
  * draws the outline of the component and takes a view as parameter
  * making menuOption more reusable
  *
- * @param backgroundColor - back ground color of composable
+ * @param backgroundColor - background color
  * @param modifier - modifier
  * @param onClick - onclick action
  * @param onHold - onHold action

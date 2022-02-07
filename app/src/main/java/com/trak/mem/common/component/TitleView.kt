@@ -18,6 +18,7 @@ import com.trak.mem.ui.theme.titleViewSpaceBetween
  * @param title - title text
  * @param icon - icon resource
  * @param contentDescription - image content description
+ * @param tint - tint color
  * @param modifier - modifier
  */
 @Composable

@@ -15,7 +15,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.ramcosta.composedestinations.navigation.EmptyDestinationsNavigator
 import com.trak.mem.R
 import com.trak.mem.common.component.TitleView
-import com.trak.mem.common.component.model.OptionType
+import com.trak.mem.common.model.OptionType
 import com.trak.mem.scene.destinations.EditScreenDestination
 import com.trak.mem.scene.destinations.PlayScreenDestination
 import com.trak.mem.common.component.OptionContentView
@@ -27,6 +27,9 @@ import com.trak.mem.ui.theme.screenPadding
 import com.trak.mem.ui.theme.screenSecondSpacer
 import com.trak.mem.ui.theme.screenTopSpacer
 
+/**
+ * home screen
+ */
 @Destination(start = true)
 @Composable
 fun HomeScreen(

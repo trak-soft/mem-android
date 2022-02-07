@@ -21,7 +21,10 @@ import kotlin.math.sqrt
  *
  * @param size - size of list
  * @param modifier - modifier
- * @param content - of grid
+ * @param padding - padding between grid
+ * @param inf - when false grid will be contained in screen size when true grid will be infinitely long
+ * @param rowCount - number of row in grid when null number of row decided by length of grid
+ * @param content - content of grid
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -37,9 +40,7 @@ fun GridView(
         val cw = constraints.maxWidth.toFloat()
         val ch = constraints.maxHeight.toFloat()
         val ratio = cw / ch
-        var (row, column) = getRowColumn(size, ratio,0.3f)
-        println(listOf(row,column)+"asdsads")
-        println(listOf(cw,ch))
+        var (row, column) = getRowColumn(size, ratio,0.3f, inf && rowCount != null)
         row  = (rowCount ?: row)
         rowCount?.let {
             column = ceil(size / row.toFloat()).toInt()
@@ -50,22 +51,64 @@ fun GridView(
             modifier = Modifier
                 .matchParentSize()
         ) {
+            val width = cw / row
+
             items(size) {
                 var mod =  modifier
                 if (!inf){
                     mod = mod.fillParentMaxHeight(1f / column)
                 }
-                val w = cw / row
                 content(
                     it,
                     modifier = mod
                         .fillMaxWidth(1f / row)
-                        .aspectRatio(1f, (w * column > ch) && !inf)
+                        .aspectRatio(1f, (width * column > ch) && !inf)
                         .padding(padding),
                 )
             }
         }
     }
+}
+
+
+/**
+ * gets row and column of grid based on length of array and ratio of container
+ *
+ * @param length - total length of grid
+ * @param ratio - ratio of container w / h
+ * @param range - acceptable error range
+ * @param inf - when false grid will be contained in screen size when true grid will be infinitely long
+ */
+fun getRowColumn(
+    length: Int,
+    ratio: Float,
+    range: Float,
+    inf: Boolean = false
+) : Pair<Int, Int> {
+    var row = 1
+    var col = length
+    if (inf) return row to col
+    var diff = abs((row/(col.toFloat())) - ratio)
+    var i = 1
+    //get every combination of row col of length
+    //finds the closest combination with ratio closest to ratio passed in
+    while (i <= sqrt(length.toDouble())) {
+        if (length % i == 0) {
+            if (length / i != i) {
+                val tempCol = length/i
+                val new = abs((i/(tempCol.toFloat())) - ratio)
+                if (new < diff) {
+                    diff = new
+                    row = i
+                    col = tempCol
+                }
+            }
+        }
+        i++
+    }
+    if (diff < range)
+        return row to col
+    return getRowColumn(length + 1, ratio, range)
 }
 
 //@Preview
@@ -84,40 +127,3 @@ fun GridViewPreview(
     }
 }
 
-/**
- * gets row and column of grid based on length of array and ratio of container
- *
- * @param length - total length of grid
- * @param ratio - ratio of container w / h
- * @param range - acceptable error range
- */
-fun getRowColumn(
-    length: Int,
-    ratio: Float,
-    range: Float,
-) : Pair<Int, Int> {
-    var diff = Float.MAX_VALUE
-    var row = 1
-    var col = length
-    var i = 1
-    //get every combination of row col of length
-    //finds the closest combination with ratio closest to ratio passed in
-    while (i <= sqrt(length.toDouble())) {
-        if (length % i == 0) {
-            if (length / i != i) {
-                val tcol = length/i
-                print("ratio:$ratio - ${i/tcol.toFloat()} all: ${listOf(i,tcol)}")
-                val new = abs((i/(tcol.toFloat())) - ratio)
-                if (new < diff) {
-                    diff = new
-                    row = i
-                    col = tcol
-                }
-            }
-        }
-        i++
-    }
-    if (diff < range)
-        return row to col
-    return getRowColumn(length + 1, ratio,range)
-}

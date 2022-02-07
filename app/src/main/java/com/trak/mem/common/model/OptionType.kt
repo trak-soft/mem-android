@@ -1,4 +1,4 @@
-package com.trak.mem.common.component.model
+package com.trak.mem.common.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

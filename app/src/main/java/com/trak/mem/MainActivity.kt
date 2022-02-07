@@ -27,7 +27,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             MemandroidTheme {
                 val navController = rememberAnimatedNavController()
-
                 BoxWithConstraints {
                     val width = constraints.maxWidth
                     val navHostEngine = rememberAnimatedNavHostEngine(

@@ -10,20 +10,16 @@ import androidx.compose.ui.res.stringResource
 import com.trak.mem.R
 import com.trak.mem.common.component.OptionContentView
 import com.trak.mem.common.component.TextIconView
-import com.trak.mem.common.component.model.OptionType
+import com.trak.mem.common.model.OptionType
 import com.trak.mem.ui.theme.MemandroidTheme
 import com.trak.mem.ui.theme.gameModePaddingViewPadding
 
 /***
  * option mode view
  *
- * @param groupLength - length of one group
- * @param preview - if board will be preview at the start
- * @param numOfGroup - number of groups
- * @param timeLimit - time limit to solve
- *                  - view not displayed if timeLimit is null
- * @param clickLimit - max number of click
- *                   - view not displayed if clickLimit is null
+ * @param mode - mode setting
+ * @param modifier - modifier
+ * @param tint - tint color
  */
 @Composable
 fun OptionModeView(
