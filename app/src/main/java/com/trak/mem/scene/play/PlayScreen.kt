@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -42,7 +43,8 @@ fun PlayScreen(
                 viewModel.mode.timeLimit?.let { timeLimit ->
                     val timeLeft = viewModel.timeLeft.value
                     timeLeft?.let{
-                        Box(modifier = Modifier.align(Alignment.BottomCenter)
+                        Box(modifier = Modifier
+                            .align(Alignment.BottomCenter)
                             .fillMaxWidth()
                             .fillMaxHeight(it / timeLimit.toFloat())
                             .background(viewModel.tint.copy(0.05f))
@@ -77,11 +79,9 @@ fun PlayScreen(
                                 onClick = { },
                                 onHold = { }
                             ) {
-                                OptionImageView(
-                                    icon = viewModel.icons.value[index],
-                                    contentDescription = "",
-                                    tint = MaterialTheme.colors.onSurface,
-                                    modifier = Modifier.align(Alignment.Center)
+                                Text(
+                                    viewModel.icons.value[index].toString(),
+                                    Modifier.align(Alignment.Center)
                                 )
                             }
                         }
