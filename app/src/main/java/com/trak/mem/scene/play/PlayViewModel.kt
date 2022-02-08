@@ -23,9 +23,8 @@ class PlayViewModel(
 
     init {
         icons.value = mutableListOf<Int>().apply {
-            for (i in 1..(mode.groupLength * mode.numOfGroup)) {
-                add(R.drawable.ic_brain)
-            }
+            for (i in 0..(mode.groupLength * mode.numOfGroup))
+                add(-1)
         }.toList()
     }
 }
