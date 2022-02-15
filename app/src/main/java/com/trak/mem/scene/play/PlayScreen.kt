@@ -11,14 +11,14 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.trak.mem.common.model.OptionType
 import com.trak.mem.common.component.OptionContentView
-import com.trak.mem.common.component.OptionImageView
 import com.trak.mem.common.component.GridView
 import com.trak.mem.scene.play.component.HeaderView
+import com.trak.mem.scene.play.model.CardState
 import com.trak.mem.ui.theme.*
+import kotlinx.coroutines.launch
 
 /**
  * play screen
@@ -32,6 +32,7 @@ fun PlayScreen(
         mode,
         tint = MaterialTheme.colors.onSurface
     )
+    val cards = viewModel.cards.value
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
 
@@ -67,7 +68,7 @@ fun PlayScreen(
                     Spacer(modifier = Modifier.size(screenSecondSpacer))
                     Box(modifier = Modifier.padding(bottom = screenBottomPadding)){
                         GridView(
-                            viewModel.icons.value.size,
+                            viewModel.cards.value.size,
                             modifier = Modifier
                                 .fillMaxSize()
                                 .align(Alignment.Center)
@@ -76,11 +77,21 @@ fun PlayScreen(
                                 backgroundColor = viewModel.tint.copy(0.05f),
                                 tint = viewModel.tint,
                                 modifier = modifier,
-                                onClick = { },
+                                onClick = {
+                                    scope.launch {
+                                        viewModel.onCardClick(index)
+                                        println("is clicked")
+                                    }
+                                },
                                 onHold = { }
                             ) {
                                 Text(
-                                    viewModel.icons.value[index].toString(),
+                                    run {
+                                        if (cards[index].iconState == CardState.FACE_DOWN) {
+                                            cards[index].icon
+                                        }
+                                        "-1"
+                                    },
                                     Modifier.align(Alignment.Center)
                                 )
                             }
