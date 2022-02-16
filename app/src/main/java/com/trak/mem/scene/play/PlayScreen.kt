@@ -27,12 +27,11 @@ import kotlinx.coroutines.launch
 @Composable
 fun PlayScreen(
     mode: OptionType.Mode,
-){
+) {
     val viewModel = PlayViewModel(
         mode,
         tint = MaterialTheme.colors.onSurface
     )
-    val cards = viewModel.cards.value
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
 
@@ -40,7 +39,7 @@ fun PlayScreen(
         scaffoldState = scaffoldState,
         modifier = Modifier.fillMaxSize()
     ) {
-            Box(modifier = Modifier.fillMaxSize()){
+            Box(modifier = Modifier.fillMaxSize()) {
                 viewModel.mode.timeLimit?.let { timeLimit ->
                     val timeLeft = viewModel.timeLeft.value
                     timeLeft?.let{
@@ -66,9 +65,9 @@ fun PlayScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
                     Spacer(modifier = Modifier.size(screenSecondSpacer))
-                    Box(modifier = Modifier.padding(bottom = screenBottomPadding)){
+                    Box(modifier = Modifier.padding(bottom = screenBottomPadding)) {
                         GridView(
-                            viewModel.cards.value.size,
+                            viewModel.cards.size,
                             modifier = Modifier
                                 .fillMaxSize()
                                 .align(Alignment.Center)
@@ -79,18 +78,16 @@ fun PlayScreen(
                                 modifier = modifier,
                                 onClick = {
                                     scope.launch {
-                                        viewModel.onCardClick(index)
-                                        println("is clicked")
+                                        viewModel.onEvent(PlayScreenEvent.CardClick(index))
                                     }
                                 },
                                 onHold = { }
                             ) {
                                 Text(
-                                    run {
-                                        if (cards[index].iconState == CardState.FACE_DOWN) {
-                                            cards[index].icon
-                                        }
-                                        "-1"
+                                    when(viewModel.cards[index].state) {
+                                        CardState.FACE_UP -> viewModel.cards[index].icon.toString()
+                                        CardState.FACE_DOWN -> "-1"
+                                        CardState.SOLVED -> viewModel.cards[index].icon.toString()
                                     },
                                     Modifier.align(Alignment.Center)
                                 )
@@ -104,7 +101,7 @@ fun PlayScreen(
 @Preview(showSystemUi = true)
 @Composable
 fun PlayScreenPreview(
-){
+) {
     MemandroidTheme(darkTheme = true) {
         PlayScreen(
             OptionType.Mode(

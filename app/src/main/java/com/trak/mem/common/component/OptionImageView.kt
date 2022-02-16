@@ -32,7 +32,7 @@ fun  OptionImageView(
     Box(
         modifier
             .wrapContentSize()
-    ){
+    ) {
         Icon(
             painterResource(id = icon),
             contentDescription,
@@ -43,7 +43,7 @@ fun  OptionImageView(
 
 //@Preview(name = "add game")
 @Composable
-fun OptionImageViewPreview(){
+fun OptionImageViewPreview() {
     MemandroidTheme(darkTheme = true) {
         OptionImageView(
             R.drawable.ic_add_game,
@@ -56,7 +56,7 @@ fun OptionImageViewPreview(){
 @ExperimentalFoundationApi
 //@Preview("menu option add game", widthDp = 145, heightDp = 145)
 @Composable
-fun MenuOptionViewOptionImagePreview(){
+fun MenuOptionViewOptionImagePreview() {
     MemandroidTheme(darkTheme = true) {
         OptionContentView(
             Color.Transparent,
@@ -64,7 +64,7 @@ fun MenuOptionViewOptionImagePreview(){
             modifier = Modifier,
             onClick = {},
             onHold = {}
-        ){
+        ) {
             OptionImageView(
                 R.drawable.ic_add_game,
                 contentDescription = stringResource(id = R.string.ic_add_game_content_description),

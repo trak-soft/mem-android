@@ -15,7 +15,7 @@ class HomeViewModel(
     val icon: Int = R.drawable.ic_brain,
     val tint: Color = Color.Black,
     val optionColor: Color =  Color.Black
-) : ViewModel(){
+) : ViewModel() {
     private val _options = mutableStateOf(setOf(
         OptionType.Add,
         OptionType.Mode(3, true,9, null, null),
@@ -26,7 +26,7 @@ class HomeViewModel(
         OptionType.Mode(2,  true,15, 67, null),
         OptionType.Mode(4,  true,8, 67, null),
         OptionType.Mode(3,  true,7, 67, 70),
-        OptionType.Mode(2,  true,7, 67, 70),
+        OptionType.Mode(2,  true,3, 67, 70),
     ))
     val options: State<Set<OptionType>> = _options
 }

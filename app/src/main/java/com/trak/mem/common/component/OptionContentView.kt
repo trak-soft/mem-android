@@ -35,13 +35,13 @@ fun OptionContentView(
     onClick: () -> Unit,
     onHold: () -> Unit,
     content: @Composable BoxScope.() -> Unit
-){
+) {
     Surface(
         modifier = modifier.combinedClickable(
             onClick = onClick,
             onLongClick = onHold,
         ).clip(RoundedCornerShape(menuOptionViewRoundedCorner))
-    ){
+    ) {
         Box(
             Modifier
                 .border(
@@ -50,7 +50,7 @@ fun OptionContentView(
                     shape = RoundedCornerShape(menuOptionViewRoundedCorner)
                 )
                 .background(color = backgroundColor)
-        ){
+        ) {
             content()
         }
     }
@@ -58,7 +58,7 @@ fun OptionContentView(
 
 //@Preview(widthDp = 145, heightDp = 145)
 @Composable
-fun MenuOptionContentViewPreview(){
+fun MenuOptionContentViewPreview() {
     MemandroidTheme(darkTheme = true) {
         OptionContentView(
             Color.Transparent,

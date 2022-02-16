@@ -32,7 +32,7 @@ fun HeaderView(
     onReset: () -> Unit,
     tint: Color,
     modifier: Modifier = Modifier
-){
+) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
@@ -67,7 +67,7 @@ fun HeaderView(
 
 //@Preview()
 @Composable
-fun HeaderViewPreview(){
+fun HeaderViewPreview() {
         HeaderView(
             23,
             33,
