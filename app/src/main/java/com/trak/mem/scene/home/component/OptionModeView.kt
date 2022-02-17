@@ -26,12 +26,12 @@ fun OptionModeView(
     mode: OptionType.Mode,
     modifier: Modifier = Modifier,
     tint: Color = MaterialTheme.colors.onSurface,
-){
+) {
     Box(
         modifier = modifier
             .fillMaxSize()
             .padding(all = gameModePaddingViewPadding)
-    ){
+    ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
@@ -98,7 +98,7 @@ fun OptionModeView(
 
 //@Preview(name = "game mode menu option", widthDp = 145, heightDp = 145)
 @Composable
-fun MenuOptionGameModePreview(){
+fun MenuOptionGameModePreview() {
     MemandroidTheme(darkTheme = true) {
         OptionContentView(
             Color.Transparent,
@@ -122,7 +122,7 @@ fun MenuOptionGameModePreview(){
 
 //@Preview(name = "menu option game mode", widthDp = 145, heightDp = 145)
 @Composable
-fun GameModeViewPreview(){
+fun GameModeViewPreview() {
     MemandroidTheme(darkTheme = true) {
         OptionModeView(
             OptionType.Mode(

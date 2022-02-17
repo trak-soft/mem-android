@@ -23,7 +23,7 @@ import com.trak.mem.ui.theme.screenTopSpacer
 @Destination
 @Composable
 fun EditScreen(
-){
+) {
     val viewModel = EditViewModel(tint = MaterialTheme.colors.onSurface)
     val scaffoldState = rememberScaffoldState()
 //    val scope = rememberCoroutineScope()
@@ -32,7 +32,7 @@ fun EditScreen(
         scaffoldState = scaffoldState,
         modifier = Modifier.fillMaxSize()
     ) {
-        Column(modifier = Modifier.fillMaxSize()){
+        Column(modifier = Modifier.fillMaxSize()) {
             Spacer(modifier = Modifier.size(screenTopSpacer))
             TitleView(
                 viewModel.title,
@@ -47,6 +47,6 @@ fun EditScreen(
 //@Preview(showSystemUi = true)
 @Composable
 fun EditScreenPreview(
-){
+) {
     EditScreen()
 }

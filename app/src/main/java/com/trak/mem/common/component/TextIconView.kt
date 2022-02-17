@@ -90,7 +90,7 @@ fun TextIconView(
 
 //@Preview("group length")
 @Composable
-fun InfoViewPreview(){
+fun InfoViewPreview() {
     MemandroidTheme(darkTheme = true) {
         Column {
             TextIconView(

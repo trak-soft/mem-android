@@ -11,14 +11,14 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.trak.mem.common.model.OptionType
 import com.trak.mem.common.component.OptionContentView
-import com.trak.mem.common.component.OptionImageView
 import com.trak.mem.common.component.GridView
 import com.trak.mem.scene.play.component.HeaderView
+import com.trak.mem.scene.play.model.CardState
 import com.trak.mem.ui.theme.*
+import kotlinx.coroutines.launch
 
 /**
  * play screen
@@ -27,7 +27,7 @@ import com.trak.mem.ui.theme.*
 @Composable
 fun PlayScreen(
     mode: OptionType.Mode,
-){
+) {
     val viewModel = PlayViewModel(
         mode,
         tint = MaterialTheme.colors.onSurface
@@ -39,7 +39,7 @@ fun PlayScreen(
         scaffoldState = scaffoldState,
         modifier = Modifier.fillMaxSize()
     ) {
-            Box(modifier = Modifier.fillMaxSize()){
+            Box(modifier = Modifier.fillMaxSize()) {
                 viewModel.mode.timeLimit?.let { timeLimit ->
                     val timeLeft = viewModel.timeLeft.value
                     timeLeft?.let{
@@ -65,9 +65,9 @@ fun PlayScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
                     Spacer(modifier = Modifier.size(screenSecondSpacer))
-                    Box(modifier = Modifier.padding(bottom = screenBottomPadding)){
+                    Box(modifier = Modifier.padding(bottom = screenBottomPadding)) {
                         GridView(
-                            viewModel.icons.value.size,
+                            viewModel.cards.size,
                             modifier = Modifier
                                 .fillMaxSize()
                                 .align(Alignment.Center)
@@ -76,11 +76,19 @@ fun PlayScreen(
                                 backgroundColor = viewModel.tint.copy(0.05f),
                                 tint = viewModel.tint,
                                 modifier = modifier,
-                                onClick = { },
+                                onClick = {
+                                    scope.launch {
+                                        viewModel.onEvent(PlayScreenEvent.CardClick(index))
+                                    }
+                                },
                                 onHold = { }
                             ) {
                                 Text(
-                                    viewModel.icons.value[index].toString(),
+                                    when(viewModel.cards[index].state) {
+                                        CardState.FACE_UP -> viewModel.cards[index].icon.toString()
+                                        CardState.FACE_DOWN -> "-1"
+                                        CardState.SOLVED -> viewModel.cards[index].icon.toString()
+                                    },
                                     Modifier.align(Alignment.Center)
                                 )
                             }
@@ -93,7 +101,7 @@ fun PlayScreen(
 @Preview(showSystemUi = true)
 @Composable
 fun PlayScreenPreview(
-){
+) {
     MemandroidTheme(darkTheme = true) {
         PlayScreen(
             OptionType.Mode(

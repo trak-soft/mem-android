@@ -28,7 +28,7 @@ fun TitleView(
     contentDescription: String,
     tint: Color,
     modifier: Modifier = Modifier,
-){
+) {
     TextIconView(
         title.uppercase(),
         icon,
@@ -43,7 +43,7 @@ fun TitleView(
 
 //@Preview
 @Composable
-fun TitleViewPreview(){
+fun TitleViewPreview() {
     MemandroidTheme(darkTheme = true) {
         TitleView(
             stringResource(id = R.string.memory),

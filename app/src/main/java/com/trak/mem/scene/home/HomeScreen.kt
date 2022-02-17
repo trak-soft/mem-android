@@ -34,7 +34,7 @@ import com.trak.mem.ui.theme.screenTopSpacer
 @Composable
 fun HomeScreen(
     navigator: DestinationsNavigator
-){
+) {
     val viewModel = HomeViewModel(
         tint = MaterialTheme.colors.onSurface,
         optionColor = MaterialTheme.colors.onSurface.copy(0.05f)
@@ -49,7 +49,7 @@ fun HomeScreen(
         Column(modifier = Modifier
                 .fillMaxSize()
                 .padding(start = screenPadding, end = screenPadding)
-        ){
+        ) {
             Spacer(modifier = Modifier.size(screenTopSpacer))
             TitleView(
                 viewModel.title,
@@ -59,7 +59,7 @@ fun HomeScreen(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
             )
             Spacer(modifier = Modifier.size(screenSecondSpacer))
-            Box(modifier = Modifier){
+            Box(modifier = Modifier) {
                 GridView(viewModel.options.value.size,
                     modifier = Modifier
                         .fillMaxSize()
@@ -67,7 +67,7 @@ fun HomeScreen(
                     padding = 10.dp,
                     inf = true,
                     rowCount = 2
-                ){ index, modifier->
+                ) { index, modifier->
                     val option = viewModel.options.value.toList()[index]
                     OptionContentView(
                         viewModel.optionColor,
@@ -118,7 +118,7 @@ fun HomeScreen(
 
 //@Preview(showSystemUi = true)
 @Composable
-fun HomeScreenPreview(){
+fun HomeScreenPreview() {
     MemandroidTheme(darkTheme = false) {
         HomeScreen(
             EmptyDestinationsNavigator

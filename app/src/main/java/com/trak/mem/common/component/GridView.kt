@@ -35,8 +35,8 @@ fun GridView(
     inf: Boolean = false,
     rowCount: Int? = null,
     content: @Composable BoxScope.(index: Int, modifier: Modifier) -> Unit,
-){
-    BoxWithConstraints(modifier = modifier){
+) {
+    BoxWithConstraints(modifier = modifier) {
         val cw = constraints.maxWidth.toFloat()
         val ch = constraints.maxHeight.toFloat()
         val ratio = cw / ch
@@ -55,7 +55,7 @@ fun GridView(
 
             items(size) {
                 var mod =  modifier
-                if (!inf){
+                if (!inf) {
                     mod = mod.fillParentMaxHeight(1f / column)
                 }
                 content(
@@ -114,11 +114,11 @@ fun getRowColumn(
 //@Preview
 @Composable
 fun GridViewPreview(
-){
-    Box(modifier = Modifier.fillMaxSize()){
+) {
+    Box(modifier = Modifier.fillMaxSize()) {
         GridView(
             4
-        ){ index, modifier ->
+        ) { index, modifier ->
             Text(
                 index.toString(),
                 modifier = modifier.border(3.dp,Color.Red, RoundedCornerShape(3.dp))
