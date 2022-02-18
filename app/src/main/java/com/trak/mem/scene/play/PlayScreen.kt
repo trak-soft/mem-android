@@ -7,6 +7,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +19,7 @@ import com.trak.mem.common.component.GridView
 import com.trak.mem.scene.play.component.HeaderView
 import com.trak.mem.scene.play.model.CardState
 import com.trak.mem.ui.theme.*
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
@@ -98,7 +100,7 @@ fun PlayScreen(
             }
     }
 }
-@Preview(showSystemUi = true)
+//@Preview(showSystemUi = true)
 @Composable
 fun PlayScreenPreview(
 ) {

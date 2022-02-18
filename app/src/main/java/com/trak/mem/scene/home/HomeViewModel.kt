@@ -26,7 +26,7 @@ class HomeViewModel(
         OptionType.Mode(2,  true,15, 67, null),
         OptionType.Mode(4,  true,8, 67, null),
         OptionType.Mode(3,  true,7, 67, 70),
-        OptionType.Mode(2,  true,3, 67, 70),
+        OptionType.Mode(2,  true,3, 5, 70),
     ))
     val options: State<Set<OptionType>> = _options
 }
