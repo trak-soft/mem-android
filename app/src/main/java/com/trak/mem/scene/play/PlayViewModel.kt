@@ -46,13 +46,24 @@ class PlayViewModel(
             if (groupSolved.value < mode.numOfGroup)
                 when(cards[index].state) {
                     CardState.FACE_UP -> {}
-                    CardState.FACE_DOWN -> addToActive(index)
+                    CardState.FACE_DOWN -> {
+                        clicksLeft.value?.let {
+                            if (it > 0)
+                                addToActive(index)
+                        } ?: run {
+                            addToActive(index)
+                        }
+                    }
                     CardState.SOLVED -> {}
                 }
         }
     }
 
     private fun addToActive(index:Int) {
+        clicksLeft.value?.let { clicks ->
+            if (clicks > 0)
+                clicksLeft.value = clicks - 1
+        }
         if (actives.size > 1 && cards[actives[actives.size - 2]].icon != cards[actives[actives.size - 1]].icon) {
             for (active in actives)
                 cards[active] = Card(cards[active].icon,CardState.FACE_DOWN)
