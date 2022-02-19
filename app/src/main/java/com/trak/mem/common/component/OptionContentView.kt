@@ -40,7 +40,8 @@ fun OptionContentView(
         modifier = modifier.combinedClickable(
             onClick = onClick,
             onLongClick = onHold,
-        ).clip(RoundedCornerShape(menuOptionViewRoundedCorner))
+        ).clip(RoundedCornerShape(menuOptionViewRoundedCorner)),
+        color = Color.Transparent
     ) {
         Box(
             Modifier
