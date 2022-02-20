@@ -1,5 +1,6 @@
 package com.trak.mem.scene.play
 
+import android.os.CountDownTimer
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -20,19 +21,32 @@ class PlayViewModel(
     private val _groupSolved = mutableStateOf(0)
     val groupSolved: MutableState<Int> = _groupSolved
 
-
-    private val _timeLeft = mutableStateOf(mode.timeLimit?.toLong())
+    private val _timeLeft = mutableStateOf(mode.timeLimit?.let { return@let it * MILLISECOND })
     val timeLeft: MutableState<Long?> = _timeLeft
 
     private val _clicksLeft = mutableStateOf(mode.clickLimit)
     val clicksLeft: MutableState<Int?> = _clicksLeft
 
+    private var timer: CountDownTimer? = mode.timeLimit?.let {
+        object : CountDownTimer(it * MILLISECOND, TIME_INTERVAL) {
+            override fun onTick(millisUntilFinished: Long) {
+                _timeLeft.value = millisUntilFinished
+            }
+            override fun onFinish() {
+                _timeLeft.value = 0
+            }
+        }
+    }
+
     private val actives = mutableListOf<Int>()
+
     init {
-        groupSolved.value = 0
+        _groupSolved.value = 0
         for (i in 0 until mode.groupLength)
             for (j in 0 until mode.numOfGroup)
                 cards.add(Card(j))
+       timer?.start()
+
     }
 
     fun onEvent(event: PlayScreenEvent) {
@@ -43,19 +57,43 @@ class PlayViewModel(
 
     private fun onCardClick(index: Int) {
         viewModelScope.launch {
-            if (groupSolved.value < mode.numOfGroup)
-                when(cards[index].state) {
+            if (_groupSolved.value < mode.numOfGroup) {
+                when (cards[index].state) {
                     CardState.FACE_UP -> {}
                     CardState.FACE_DOWN -> {
-                        clicksLeft.value?.let {
-                            if (it > 0)
+                        when {
+                            mode.timeLimit != null && mode.clickLimit != null -> {
+                                clicksLeft.value?.let { clicks ->
+                                    timeLeft.value?.let { time ->
+                                        if (clicks > 0 && time > 0)
+                                            addToActive(index)
+                                        if (clicks == 1)
+                                            timer?.cancel()
+                                    }
+                                }
+                            }
+                            mode.timeLimit != null -> {
+                                timeLeft.value?.let { time ->
+                                    if (time > 0)
+                                        addToActive(index)
+                                }
+                            }
+                            mode.clickLimit != null -> {
+                                clicksLeft.value?.let { clicks ->
+                                    if (clicks > 0)
+                                        addToActive(index)
+                                }
+                            }
+                            else -> {
                                 addToActive(index)
-                        } ?: run {
-                            addToActive(index)
+                            }
                         }
                     }
                     CardState.SOLVED -> {}
                 }
+            if (_groupSolved.value == mode.numOfGroup)
+                timer?.cancel()
+            }
         }
     }
 
@@ -64,17 +102,29 @@ class PlayViewModel(
             if (clicks > 0)
                 clicksLeft.value = clicks - 1
         }
-        if (actives.size > 1 && cards[actives[actives.size - 2]].icon != cards[actives[actives.size - 1]].icon) {
+
+        if (actives.size > 1 &&
+                cards[actives[actives.size - 2]].icon != cards[actives[actives.size - 1]].icon) {
             for (active in actives)
                 cards[active] = Card(cards[active].icon,CardState.FACE_DOWN)
             actives.clear()
-        } else if (actives.size == mode.groupLength) {
+        }
+
+        actives.add(index)
+        cards[index] = Card(cards[index].icon,CardState.FACE_UP)
+
+        if (!(actives.size > 1 &&
+                cards[actives[actives.size - 2]].icon != cards[actives[actives.size - 1]].icon) &&
+                actives.size == mode.groupLength) {
             for (active in actives)
                 cards[active] = Card(cards[active].icon,CardState.SOLVED)
             _groupSolved.value = _groupSolved.value + 1
             actives.clear()
         }
-        actives.add(index)
-        cards[index] = Card(cards[index].icon,CardState.FACE_UP)
+    }
+
+    companion object {
+        const val MILLISECOND: Long = 1000
+        const val TIME_INTERVAL: Long = 10
     }
 }

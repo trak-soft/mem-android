@@ -21,6 +21,7 @@ import com.trak.mem.scene.play.model.CardState
 import com.trak.mem.ui.theme.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.math.ceil
 
 /**
  * play screen
@@ -41,66 +42,67 @@ fun PlayScreen(
         scaffoldState = scaffoldState,
         modifier = Modifier.fillMaxSize()
     ) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                viewModel.mode.timeLimit?.let { timeLimit ->
-                    val timeLeft = viewModel.timeLeft.value
-                    timeLeft?.let{
-                        Box(modifier = Modifier
-                            .align(Alignment.BottomCenter)
-                            .fillMaxWidth()
-                            .fillMaxHeight(it / timeLimit.toFloat())
-                            .background(viewModel.tint.copy(0.05f))
-                        )
-                    }
-                }
 
-                Column(modifier = Modifier
-                    .fillMaxSize()
-                    .padding(start = screenPadding, end = screenPadding)
-                ) {
-                    Spacer(modifier = Modifier.size(screenTopSpacer))
-                    HeaderView(
-                        viewModel.clicksLeft.value,
-                        viewModel.timeLeft.value,
-                        {},
-                        viewModel.tint,
-                        modifier = Modifier.fillMaxWidth()
+        Box(modifier = Modifier.fillMaxSize()) {
+            viewModel.mode.timeLimit?.let { timeLimit ->
+                val timeLeft = viewModel.timeLeft.value
+                timeLeft?.let{
+                    Box(modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .fillMaxWidth()
+                        .fillMaxHeight(it /(timeLimit * 1000L).toFloat())
+                        .background(viewModel.tint.copy(0.05f))
                     )
-                    Spacer(modifier = Modifier.size(screenSecondSpacer))
-                    Box(modifier = Modifier.padding(bottom = screenBottomPadding)) {
-                        GridView(
-                            viewModel.cards.size,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .align(Alignment.Center)
-                        ) { index, modifier ->
-                            OptionContentView(
-                                backgroundColor = viewModel.tint.copy(0.05f),
-                                tint = viewModel.tint,
-                                modifier = modifier,
-                                onClick = {
-                                    scope.launch {
-                                        viewModel.onEvent(PlayScreenEvent.CardClick(index))
-                                    }
+                }
+            }
+
+            Column(modifier = Modifier
+                .fillMaxSize()
+                .padding(start = screenPadding, end = screenPadding)
+            ) {
+                Spacer(modifier = Modifier.size(screenTopSpacer))
+                HeaderView(
+                    viewModel.clicksLeft.value,
+                    viewModel.timeLeft.value?.let { ceil(it / 1000L.toFloat()).toLong() },
+                    {},
+                    viewModel.tint,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.size(screenSecondSpacer))
+                Box(modifier = Modifier.padding(bottom = screenBottomPadding)) {
+                    GridView(
+                        viewModel.cards.size,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .align(Alignment.Center)
+                    ) { index, modifier ->
+                        OptionContentView(
+                            backgroundColor = viewModel.tint.copy(0.05f ),
+                            tint = viewModel.tint,
+                            modifier = modifier,
+                            onClick = {
+                                scope.launch {
+                                    viewModel.onEvent(PlayScreenEvent.CardClick(index))
+                                }
+                            },
+                            onHold = { }
+                        ) {
+                            Text(
+                                when(viewModel.cards[index].state) {
+                                    CardState.FACE_UP -> viewModel.cards[index].icon.toString()
+                                    CardState.FACE_DOWN -> "-1"
+                                    CardState.SOLVED -> viewModel.cards[index].icon.toString()
                                 },
-                                onHold = { }
-                            ) {
-                                Text(
-                                    when(viewModel.cards[index].state) {
-                                        CardState.FACE_UP -> viewModel.cards[index].icon.toString()
-                                        CardState.FACE_DOWN -> "-1"
-                                        CardState.SOLVED -> viewModel.cards[index].icon.toString()
-                                    },
-                                    Modifier.align(Alignment.Center)
-                                )
-                            }
+                                Modifier.align(Alignment.Center)
+                            )
                         }
                     }
                 }
             }
+        }
     }
 }
-//@Preview(showSystemUi = true)
+@Preview(showSystemUi = true)
 @Composable
 fun PlayScreenPreview(
 ) {
