@@ -100,8 +100,6 @@ class PlayViewModel(
                                     timeLeft.value?.let { time ->
                                         if (clicks > 0 && time > 0)
                                             addToActive(index)
-                                        if (clicks == 1)
-                                            timer?.cancel()
                                     }
                                 }
                             }
@@ -138,15 +136,15 @@ class PlayViewModel(
      * changes state to inti
      */
     private fun toInitState() {
-        if(_state.value == GameState.INIT || _state.value is GameState.OVER) {
-            _clicksLeft.value = mode.clickLimit
-            _timeLeft.value = mode.timeLimit?.let { return@let it * MILLISECOND }
-            _groupSolved.value = 0
-            for (index in 0 until cards.size) {
-                cards[index] = cards[index].copy(state = CardState.FACE_DOWN)
-            }
-            _state.value = GameState.INIT
+        timer?.cancel()
+        _clicksLeft.value = mode.clickLimit
+        _timeLeft.value = mode.timeLimit?.let { return@let it * MILLISECOND }
+        _groupSolved.value = 0
+        for (index in 0 until cards.size) {
+            cards[index] = cards[index].copy(state = CardState.FACE_DOWN)
         }
+
+        _state.value = GameState.INIT
     }
 
     /**
