@@ -16,7 +16,7 @@ class HomeViewModel(
 ) : ViewModel() {
     private val _options = mutableStateOf(setOf(
         OptionType.ADD,
-        OptionType.MODE(3, true,9, null, null),
+        OptionType.MODE(3, false,9, null, null),
         OptionType.MODE(2,  true,9, null, 10),
         OptionType.MODE(2,  true,10, 67, null),
         OptionType.MODE(3,  true,14, 67, null),
@@ -24,7 +24,7 @@ class HomeViewModel(
         OptionType.MODE(2,  true,15, 67, null),
         OptionType.MODE(4,  true,8, 67, null),
         OptionType.MODE(3,  true,7, 67, 70),
-        OptionType.MODE(2,  true,3, null, 70),
+        OptionType.MODE(2,  false,3, null, 70),
     ))
     val options: State<Set<OptionType>> = _options
 }

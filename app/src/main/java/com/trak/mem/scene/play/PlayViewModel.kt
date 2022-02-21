@@ -50,6 +50,20 @@ class PlayViewModel(
         }
     }
 
+    private var previewTimer: CountDownTimer? = if (mode.preview) {
+        object : CountDownTimer(3 * MILLISECOND, TIME_INTERVAL) {
+            override fun onTick(millisUntilFinished: Long) {
+                println(millisUntilFinished)
+            }
+            override fun onFinish() {
+                for (index in 0 until cards.size) {
+                    cards[index] = cards[index].copy(state = CardState.FACE_DOWN)
+                }
+                toPlayState()
+            }
+        }
+    } else null
+
     private val actives = mutableListOf<Int>()
 
     init {
@@ -79,7 +93,10 @@ class PlayViewModel(
     private fun onResetEvent() {
         viewModelScope.launch {
             toInitState()
-            toPlayState()
+            if (mode.preview)
+                toPreviewState()
+            else
+                toPlayState()
         }
     }
 
@@ -150,9 +167,14 @@ class PlayViewModel(
     /**
      * changes state to preview
      */
-    fun toPreviewState() {
-        if (_state.value == GameState.INIT)
+    private fun toPreviewState() {
+        if (_state.value == GameState.INIT) {
             _state.value = GameState.PREVIEW
+            for (index in 0 until cards.size) {
+                cards[index] = cards[index].copy(state = CardState.FACE_UP)
+            }
+            previewTimer?.start()
+        }
     }
 
     /**
@@ -174,7 +196,6 @@ class PlayViewModel(
             timer?.cancel()
         }
     }
-
 
     //helpers
 
