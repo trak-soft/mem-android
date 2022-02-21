@@ -35,30 +35,31 @@ import com.trak.mem.ui.theme.screenTopSpacer
 fun HomeScreen(
     navigator: DestinationsNavigator
 ) {
-    val viewModel = HomeViewModel(
-        tint = MaterialTheme.colors.onSurface,
-        optionColor = MaterialTheme.colors.onSurface.copy(0.05f)
-    )
+    val viewModel = HomeViewModel()
+    val tint = MaterialTheme.colors.onSurface
+    val optionColor = MaterialTheme.colors.onSurface.copy(0.05f)
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
 
     Scaffold(
-        scaffoldState = scaffoldState,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
+        scaffoldState = scaffoldState
     ) {
         Column(modifier = Modifier
                 .fillMaxSize()
                 .padding(start = screenPadding, end = screenPadding)
         ) {
             Spacer(modifier = Modifier.size(screenTopSpacer))
+            //title
             TitleView(
-                viewModel.title,
-                viewModel.icon,
-                stringResource(id = R.string.ic_memory_content_description),
-                tint = viewModel.tint,
+                title = viewModel.title,
+                icon = viewModel.icon,
+                contentDescription = stringResource(id = R.string.ic_memory_content_description),
+                tint = tint,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
             )
             Spacer(modifier = Modifier.size(screenSecondSpacer))
+            //game mode
             Box(modifier = Modifier) {
                 GridView(viewModel.options.value.size,
                     modifier = Modifier
@@ -70,17 +71,17 @@ fun HomeScreen(
                 ) { index, modifier->
                     val option = viewModel.options.value.toList()[index]
                     OptionContentView(
-                        viewModel.optionColor,
-                        viewModel.tint,
+                        backgroundColor = optionColor,
+                        tint = tint,
                         modifier = modifier,
                         onClick = {
                             when (option) {
-                                is OptionType.Mode -> {
+                                is OptionType.MODE -> {
                                     navigator.navigate(
                                         PlayScreenDestination(mode = option)
                                     )
                                 }
-                                is OptionType.Add -> {
+                                is OptionType.ADD -> {
                                     navigator.navigate(
                                         EditScreenDestination
                                     )
@@ -94,17 +95,17 @@ fun HomeScreen(
                         }
                     ) {
                         when (option) {
-                            is OptionType.Mode -> {
+                            is OptionType.MODE -> {
                                 OptionModeView(
-                                    option,
-                                    tint = viewModel.tint
+                                    mode = option,
+                                    tint = tint
                                 )
                             }
-                            is OptionType.Add -> {
+                            is OptionType.ADD -> {
                                 OptionImageView(
-                                    R.drawable.ic_add_game,
+                                    icon = R.drawable.ic_add_game,
                                     contentDescription = stringResource(id = R.string.ic_add_game_content_description),
-                                    tint = viewModel.tint,
+                                    tint = tint,
                                     modifier = Modifier.align(Alignment.Center)
                                 )
                             }

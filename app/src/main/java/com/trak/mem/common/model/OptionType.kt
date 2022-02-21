@@ -8,11 +8,11 @@ import kotlinx.parcelize.Parcelize
  */
 sealed class OptionType{
     @Parcelize
-    data class Mode(val groupLength: Int,
+    data class MODE(val groupLength: Int,
                     val preview: Boolean,
                     val numOfGroup: Int,
                     val clickLimit: Int?,
                     val timeLimit: Int?) : OptionType(), Parcelable
 
-    object Add: OptionType()
+    object ADD: OptionType()
 }

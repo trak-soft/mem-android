@@ -13,20 +13,18 @@ import com.trak.mem.common.model.OptionType
 class HomeViewModel(
     val title: String = "memory",
     val icon: Int = R.drawable.ic_brain,
-    val tint: Color = Color.Black,
-    val optionColor: Color =  Color.Black
 ) : ViewModel() {
     private val _options = mutableStateOf(setOf(
-        OptionType.Add,
-        OptionType.Mode(3, true,9, null, null),
-        OptionType.Mode(2,  true,9, null, 10),
-        OptionType.Mode(2,  true,10, 67, null),
-        OptionType.Mode(3,  true,14, 67, null),
-        OptionType.Mode(4,  true,10, 67, null),
-        OptionType.Mode(2,  true,15, 67, null),
-        OptionType.Mode(4,  true,8, 67, null),
-        OptionType.Mode(3,  true,7, 67, 70),
-        OptionType.Mode(2,  true,3, null, 70),
+        OptionType.ADD,
+        OptionType.MODE(3, true,9, null, null),
+        OptionType.MODE(2,  true,9, null, 10),
+        OptionType.MODE(2,  true,10, 67, null),
+        OptionType.MODE(3,  true,14, 67, null),
+        OptionType.MODE(4,  true,10, 67, null),
+        OptionType.MODE(2,  true,15, 67, null),
+        OptionType.MODE(4,  true,8, 67, null),
+        OptionType.MODE(3,  true,7, 67, 70),
+        OptionType.MODE(2,  true,3, null, 70),
     ))
     val options: State<Set<OptionType>> = _options
 }

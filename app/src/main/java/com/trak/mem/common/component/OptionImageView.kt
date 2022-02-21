@@ -30,8 +30,7 @@ fun  OptionImageView(
     modifier: Modifier = Modifier
 ) {
     Box(
-        modifier
-            .wrapContentSize()
+        modifier = modifier.wrapContentSize()
     ) {
         Icon(
             painterResource(id = icon),
