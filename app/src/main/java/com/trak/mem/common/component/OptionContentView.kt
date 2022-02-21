@@ -44,13 +44,11 @@ fun OptionContentView(
         color = Color.Transparent
     ) {
         Box(
-            Modifier
-                .border(
-                    width = menuOptionViewBoarderWidth,
-                    color = tint,
-                    shape = RoundedCornerShape(menuOptionViewRoundedCorner)
-                )
-                .background(color = backgroundColor)
+            modifier = Modifier.border(
+                width = menuOptionViewBoarderWidth,
+                color = tint,
+                shape = RoundedCornerShape(menuOptionViewRoundedCorner)
+            ).background(color = backgroundColor)
         ) {
             content()
         }

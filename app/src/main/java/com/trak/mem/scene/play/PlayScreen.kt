@@ -7,10 +7,10 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.ramcosta.composedestinations.annotation.Destination
 import com.trak.mem.common.model.OptionType
@@ -19,22 +19,23 @@ import com.trak.mem.common.component.GridView
 import com.trak.mem.scene.play.component.HeaderView
 import com.trak.mem.scene.play.model.CardState
 import com.trak.mem.ui.theme.*
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.ceil
 
 /**
  * play screen
+ *
+ * @param mode - game mode being played
  */
 @Destination
 @Composable
 fun PlayScreen(
-    mode: OptionType.Mode,
+    mode: OptionType.MODE,
 ) {
     val viewModel = PlayViewModel(
-        mode,
-        tint = MaterialTheme.colors.onSurface
+        mode = mode
     )
+    val tint: Color = MaterialTheme.colors.onSurface
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
 
@@ -44,6 +45,7 @@ fun PlayScreen(
     ) {
 
         Box(modifier = Modifier.fillMaxSize()) {
+            //time limit view tracker
             viewModel.mode.timeLimit?.let { timeLimit ->
                 val timeLeft = viewModel.timeLeft.value
                 timeLeft?.let{
@@ -51,7 +53,7 @@ fun PlayScreen(
                         .align(Alignment.BottomCenter)
                         .fillMaxWidth()
                         .fillMaxHeight(it /(timeLimit * 1000L).toFloat())
-                        .background(viewModel.tint.copy(0.05f))
+                        .background(tint.copy(0.05f))
                     )
                 }
             }
@@ -61,24 +63,28 @@ fun PlayScreen(
                 .padding(start = screenPadding, end = screenPadding)
             ) {
                 Spacer(modifier = Modifier.size(screenTopSpacer))
+                //header view
                 HeaderView(
-                    viewModel.clicksLeft.value,
-                    viewModel.timeLeft.value?.let { ceil(it / 1000L.toFloat()).toLong() },
-                    {},
-                    viewModel.tint,
+                    clickLimit = viewModel.clicksLeft.value,
+                    timeLimit = viewModel.timeLeft.value?.let { ceil(it / 1000L.toFloat()).toLong() },
+                    { scope.launch {
+                        viewModel.onEvent(PlayScreenEvent.Reset)
+                    } },
+                    tint = tint,
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.size(screenSecondSpacer))
+                //grid view
                 Box(modifier = Modifier.padding(bottom = screenBottomPadding)) {
                     GridView(
-                        viewModel.cards.size,
+                        size = viewModel.cards.size,
                         modifier = Modifier
                             .fillMaxSize()
                             .align(Alignment.Center)
                     ) { index, modifier ->
                         OptionContentView(
-                            backgroundColor = viewModel.tint.copy(0.05f ),
-                            tint = viewModel.tint,
+                            backgroundColor = tint.copy(0.05f ),
+                            tint = tint,
                             modifier = modifier,
                             onClick = {
                                 scope.launch {
@@ -93,7 +99,7 @@ fun PlayScreen(
                                     CardState.FACE_DOWN -> "-1"
                                     CardState.SOLVED -> viewModel.cards[index].icon.toString()
                                 },
-                                Modifier.align(Alignment.Center)
+                                modifier = Modifier.align(Alignment.Center)
                             )
                         }
                     }
@@ -108,7 +114,7 @@ fun PlayScreenPreview(
 ) {
     MemandroidTheme(darkTheme = true) {
         PlayScreen(
-            OptionType.Mode(
+            OptionType.MODE(
         2,
         true,
         9,

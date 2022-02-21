@@ -53,10 +53,7 @@ fun TextIconView(
     space: Dp = 0.dp,
     visible: Boolean = true,
 ) {
-    Row(
-        modifier = modifier
-            .wrapContentSize()
-    ) {
+    Row(modifier = modifier.wrapContentSize()) {
         if (visible) {
             text?.let { text ->
                 Text(

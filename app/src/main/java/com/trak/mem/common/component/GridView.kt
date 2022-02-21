@@ -48,8 +48,7 @@ fun GridView(
 
         LazyVerticalGrid(
             cells = GridCells.Fixed(row),
-            modifier = Modifier
-                .matchParentSize()
+            modifier = Modifier.matchParentSize()
         ) {
             val width = cw / row
 

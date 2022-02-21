@@ -6,7 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.trak.mem.R
 import com.trak.mem.ui.theme.MemandroidTheme
 import com.trak.mem.ui.theme.titleViewImageSize
@@ -30,9 +29,9 @@ fun TitleView(
     modifier: Modifier = Modifier,
 ) {
     TextIconView(
-        title.uppercase(),
-        icon,
-        contentDescription,
+        text = title.uppercase(),
+        icon = icon,
+        contentDescription = contentDescription,
         tint = tint,
         style = MaterialTheme.typography.h4,
         iconSize = titleViewImageSize,
@@ -46,9 +45,9 @@ fun TitleView(
 fun TitleViewPreview() {
     MemandroidTheme(darkTheme = true) {
         TitleView(
-            stringResource(id = R.string.memory),
-            R.drawable.ic_brain,
-            stringResource(id = R.string.ic_memory_content_description),
+            title = stringResource(id = R.string.memory),
+            icon = R.drawable.ic_brain,
+            contentDescription = stringResource(id = R.string.ic_memory_content_description),
             tint = MaterialTheme.colors.onSurface,
             modifier = Modifier,
         )

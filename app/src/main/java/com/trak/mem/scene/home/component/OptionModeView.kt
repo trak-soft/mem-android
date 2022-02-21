@@ -23,7 +23,7 @@ import com.trak.mem.ui.theme.gameModePaddingViewPadding
  */
 @Composable
 fun OptionModeView(
-    mode: OptionType.Mode,
+    mode: OptionType.MODE,
     modifier: Modifier = Modifier,
     tint: Color = MaterialTheme.colors.onSurface,
 ) {
@@ -37,18 +37,18 @@ fun OptionModeView(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             TextIconView(
-                mode.groupLength.toString(),
-                R.drawable.ic_group_length,
-                stringResource(
+                text = mode.groupLength.toString(),
+                icon = R.drawable.ic_group_length,
+                contentDescription = stringResource(
                     R.string.ic_group_length_content_description,
                     mode.groupLength
                 ),
                 tint = tint
             )
             TextIconView(
-                null,
-                if (mode.preview) R.drawable.ic_preview else R.drawable.ic_no_preview,
-                stringResource(
+                text = null,
+                icon = if (mode.preview) R.drawable.ic_preview else R.drawable.ic_no_preview,
+                contentDescription = stringResource(
                     if (mode.preview)
                         R.string.ic_preview_content_description
                     else R.string.ic_no_preview_content_description
@@ -56,9 +56,9 @@ fun OptionModeView(
                 tint = tint
             )
             TextIconView(
-                mode.numOfGroup.toString(),
-                R.drawable.ic_num_of_group,
-                stringResource(
+                text = mode.numOfGroup.toString(),
+                icon = R.drawable.ic_num_of_group,
+                contentDescription = stringResource(
                     R.string.ic_group_length_content_description,
                     mode.numOfGroup
                 ),
@@ -67,15 +67,14 @@ fun OptionModeView(
         }
 
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
                 .align(Alignment.BottomCenter),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             TextIconView(
-                mode.clickLimit.toString(),
-                R.drawable.ic_click_limit,
-                stringResource(
+                text = mode.clickLimit.toString(),
+                icon = R.drawable.ic_click_limit,
+                contentDescription = stringResource(
                     R.string.ic_click_limit_content_description,
                     mode.clickLimit ?: 0
                 ),
@@ -83,9 +82,9 @@ fun OptionModeView(
                 visible = mode.clickLimit != null,
             )
             TextIconView(
-                mode.timeLimit.toString(),
-                R.drawable.ic_time_limit,
-                stringResource(
+                text = mode.timeLimit.toString(),
+                icon = R.drawable.ic_time_limit,
+                contentDescription = stringResource(
                     R.string.ic_time_limit_content_description,
                     mode.timeLimit ?: 0
                 ),
@@ -108,7 +107,7 @@ fun MenuOptionGameModePreview() {
             onHold = {}
         ) {
             OptionModeView(
-                OptionType.Mode(
+                OptionType.MODE(
                 3,
                 true,
                 2,
@@ -125,7 +124,7 @@ fun MenuOptionGameModePreview() {
 fun GameModeViewPreview() {
     MemandroidTheme(darkTheme = true) {
         OptionModeView(
-            OptionType.Mode(
+            OptionType.MODE(
             3,
             true,
             2,

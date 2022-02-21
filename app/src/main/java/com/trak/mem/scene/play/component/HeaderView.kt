@@ -34,14 +34,14 @@ fun HeaderView(
     modifier: Modifier = Modifier
 ) {
     Row(
+        modifier = modifier,
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier,
     ) {
         TextIconView(
-            (clickLimit ?: "  ").toString(),
-            R.drawable.ic_click_limit,
-            stringResource(id = R.string.ic_click_limit_content_description),
+            text = (clickLimit ?: "  ").toString(),
+            icon = R.drawable.ic_click_limit,
+            contentDescription = stringResource(id = R.string.ic_click_limit_content_description),
             fontSize = 32.sp,
             iconSize = 32.dp,
             tint = tint,
@@ -55,9 +55,9 @@ fun HeaderView(
             }
         )
         TextIconView(
-            (timeLimit ?: "  ").toString(),
-            R.drawable.ic_time_limit,
-            stringResource(id = R.string.ic_time_limit_content_description),
+            text = (timeLimit ?: "  ").toString(),
+            icon = R.drawable.ic_time_limit,
+            contentDescription = stringResource(id = R.string.ic_time_limit_content_description),
             fontSize = 32.sp,
             iconSize = 32.dp,
             tint = tint,
