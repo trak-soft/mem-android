@@ -51,14 +51,11 @@ class PlayViewModel(
     }
 
     private var previewTimer: CountDownTimer? = if (mode.preview) {
-        object : CountDownTimer(3 * MILLISECOND, TIME_INTERVAL) {
+        object : CountDownTimer(PREVIEW_TIME, TIME_INTERVAL) {
             override fun onTick(millisUntilFinished: Long) {
                 println(millisUntilFinished)
             }
             override fun onFinish() {
-                for (index in 0 until cards.size) {
-                    cards[index] = cards[index].copy(state = CardState.FACE_DOWN)
-                }
                 toPlayState()
             }
         }
@@ -68,9 +65,7 @@ class PlayViewModel(
 
     init {
         _groupSolved.value = 0
-        for (i in 0 until mode.groupLength)
-            for (j in 0 until mode.numOfGroup)
-                cards.add(Card(j))
+        toInitState(first = true)
     }
 
     //events
@@ -152,15 +147,21 @@ class PlayViewModel(
     /**
      * changes state to inti
      */
-    private fun toInitState() {
+    private fun toInitState(first: Boolean = false) {
         timer?.cancel()
+        previewTimer?.cancel()
         _clicksLeft.value = mode.clickLimit
         _timeLeft.value = mode.timeLimit?.let { return@let it * MILLISECOND }
         _groupSolved.value = 0
-        for (index in 0 until cards.size) {
-            cards[index] = cards[index].copy(state = CardState.FACE_DOWN)
+        if (first) {
+            for (i in 0 until mode.groupLength)
+                for (j in 0 until mode.numOfGroup)
+                    cards.add(Card(j))
+        } else {
+            for (index in 0 until cards.size) {
+                cards[index] = cards[index].copy(state = CardState.FACE_DOWN)
+            }
         }
-
         _state.value = GameState.INIT
     }
 
@@ -182,6 +183,9 @@ class PlayViewModel(
      */
     private fun toPlayState() {
         if (_state.value == GameState.INIT || _state.value == GameState.PREVIEW) {
+            for (index in 0 until cards.size) {
+                cards[index] = cards[index].copy(state = CardState.FACE_DOWN)
+            }
             _state.value = GameState.PLAY
             timer?.start()
         }
@@ -239,5 +243,6 @@ class PlayViewModel(
     companion object {
         const val MILLISECOND: Long = 1000L
         const val TIME_INTERVAL: Long = 10L
+        const val PREVIEW_TIME: Long = 3 * MILLISECOND
     }
 }
