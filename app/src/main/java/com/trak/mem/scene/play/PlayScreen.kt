@@ -38,7 +38,14 @@ fun PlayScreen(
     val tint: Color = MaterialTheme.colors.onSurface
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
-
+    var cardTint : (Int) -> Color = { index ->
+        when(viewModel.cards[index].state) {
+            CardState.FACE_UP -> Color.Blue
+            CardState.FACE_DOWN -> tint
+            CardState.SOLVED -> Color.Green
+            CardState.WRONG -> Color.Red
+        }
+    }
     Scaffold(
         scaffoldState = scaffoldState,
         modifier = Modifier.fillMaxSize()
@@ -52,7 +59,7 @@ fun PlayScreen(
                     Box(modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .fillMaxWidth()
-                        .fillMaxHeight(it /(timeLimit * 1000L).toFloat())
+                        .fillMaxHeight(it / (timeLimit * 1000L).toFloat())
                         .background(tint.copy(0.05f))
                     )
                 }
@@ -84,7 +91,7 @@ fun PlayScreen(
                     ) { index, modifier ->
                         OptionContentView(
                             backgroundColor = tint.copy(0.05f ),
-                            tint = tint,
+                            tint = cardTint(index),
                             modifier = modifier,
                             onClick = {
                                 scope.launch {
@@ -95,11 +102,11 @@ fun PlayScreen(
                         ) {
                             Text(
                                 when(viewModel.cards[index].state) {
-                                    CardState.FACE_UP -> viewModel.cards[index].icon.toString()
                                     CardState.FACE_DOWN -> "-1"
-                                    CardState.SOLVED -> viewModel.cards[index].icon.toString()
+                                    else -> viewModel.cards[index].icon.toString()
                                 },
-                                modifier = Modifier.align(Alignment.Center)
+                                modifier = Modifier.align(Alignment.Center),
+                                color = cardTint(index)
                             )
                         }
                     }
