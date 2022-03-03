@@ -42,8 +42,8 @@ fun PlayScreen(
     val cardTint : (Int) -> Color = { index ->
         when(viewModel.cards[index].state) {
             CardState.FACE_UP -> faceUpColor
-            CardState.FACE_DOWN -> tint.copy(0.05f )
-            CardState.SOLVED -> faceDownColor
+            CardState.FACE_DOWN -> tint.copy(0.05f)
+            CardState.SOLVED -> solvedColor
             CardState.WRONG -> wrongColor
         }
     }

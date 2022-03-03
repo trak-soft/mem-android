@@ -229,7 +229,7 @@ class PlayViewModel(
 
         // make card index active
         actives.add(index)
-        cards[index] = cards[index].copy(state = CardState.FACE_UP)//Card(cards[index].icon,CardState.FACE_UP)
+        cards[index] = cards[index].copy(state = CardState.FACE_UP)
 
         // check if the last 2 active cards are different and active size is equal to group length
         // if so remove all active cards and increase the number to group solved by 1
