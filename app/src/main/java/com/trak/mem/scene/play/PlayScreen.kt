@@ -38,14 +38,16 @@ fun PlayScreen(
     val tint: Color = MaterialTheme.colors.onSurface
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
-    var cardTint : (Int) -> Color = { index ->
+
+    val cardTint : (Int) -> Color = { index ->
         when(viewModel.cards[index].state) {
-            CardState.FACE_UP -> Color.Blue
-            CardState.FACE_DOWN -> tint
-            CardState.SOLVED -> Color.Green
-            CardState.WRONG -> Color.Red
+            CardState.FACE_UP -> faceUpColor
+            CardState.FACE_DOWN -> tint.copy(0.05f )
+            CardState.SOLVED -> faceDownColor
+            CardState.WRONG -> wrongColor
         }
     }
+
     Scaffold(
         scaffoldState = scaffoldState,
         modifier = Modifier.fillMaxSize()
@@ -90,8 +92,8 @@ fun PlayScreen(
                             .align(Alignment.Center)
                     ) { index, modifier ->
                         OptionContentView(
-                            backgroundColor = tint.copy(0.05f ),
-                            tint = cardTint(index),
+                            backgroundColor = cardTint(index),
+                            tint = tint,
                             modifier = modifier,
                             onClick = {
                                 scope.launch {
@@ -106,7 +108,7 @@ fun PlayScreen(
                                     else -> viewModel.cards[index].icon.toString()
                                 },
                                 modifier = Modifier.align(Alignment.Center),
-                                color = cardTint(index)
+                                color = tint
                             )
                         }
                     }
