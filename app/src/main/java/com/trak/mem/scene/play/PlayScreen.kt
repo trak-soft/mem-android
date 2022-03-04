@@ -16,7 +16,10 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.trak.mem.common.model.OptionType
 import com.trak.mem.common.component.OptionContentView
 import com.trak.mem.common.component.GridView
+import com.trak.mem.common.component.OptionImageView
 import com.trak.mem.scene.play.component.HeaderView
+import com.trak.mem.scene.play.data.cardIcons
+import com.trak.mem.scene.play.data.faceDownIcon
 import com.trak.mem.scene.play.model.CardState
 import com.trak.mem.ui.theme.*
 import kotlinx.coroutines.launch
@@ -102,13 +105,13 @@ fun PlayScreen(
                             },
                             onHold = { }
                         ) {
-                            Text(
-                                when(viewModel.cards[index].state) {
-                                    CardState.FACE_DOWN -> "-1"
-                                    else -> viewModel.cards[index].icon.toString()
-                                },
+                            OptionImageView(
+                                icon = when(viewModel.cards[index].state) {
+                                CardState.FACE_DOWN -> faceDownIcon
+                                else -> cardIcons.toList()[viewModel.cards[index].icon] },
+                                contentDescription = "",
+                                tint = tint,
                                 modifier = Modifier.align(Alignment.Center),
-                                color = tint
                             )
                         }
                     }

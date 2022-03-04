@@ -4,6 +4,7 @@ import android.os.CountDownTimer
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.trak.mem.common.model.OptionType
@@ -11,6 +12,7 @@ import com.trak.mem.scene.play.model.Card
 import com.trak.mem.scene.play.model.CardState
 import com.trak.mem.scene.play.model.GameState
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 /**
  * @property mode - game mode
@@ -25,7 +27,7 @@ class PlayViewModel(
     val mode: OptionType.MODE,
 ) : ViewModel() {
 
-    val cards = mutableStateListOf<Card>()
+    var cards = mutableStateListOf<Card>()
     private val _groupSolved = mutableStateOf(0)
     val groupSolved: MutableState<Int> = _groupSolved
 
@@ -161,10 +163,11 @@ class PlayViewModel(
             for (index in 0 until cards.size) {
                 cards[index] = cards[index].copy(state = CardState.FACE_DOWN)
             }
+            cards.shuffle()
         }
+
         _state.value = GameState.INIT
     }
-
     /**
      * changes state to preview
      */
