@@ -30,13 +30,13 @@ class PlayViewModel(
     val groupSolved: MutableState<Int> = _groupSolved
 
     private val _timeLeft = mutableStateOf(mode.timeLimit?.let { return@let it * MILLISECOND })
-    val timeLeft: MutableState<Long?> = _timeLeft
+        val timeLeft: MutableState<Long?> = _timeLeft
 
     private val _clicksLeft = mutableStateOf(mode.clickLimit)
     val clicksLeft: MutableState<Int?> = _clicksLeft
 
-    private val _state = mutableStateOf<GameState>(GameState.INIT)
-    val state: MutableState<GameState> = _state
+        private val _state = mutableStateOf<GameState>(GameState.INIT)
+        val state: MutableState<GameState> = _state
 
     private var timer: CountDownTimer? = mode.timeLimit?.let {
         object : CountDownTimer(it * MILLISECOND, TIME_INTERVAL) {
@@ -52,9 +52,7 @@ class PlayViewModel(
 
     private var previewTimer: CountDownTimer? = if (mode.preview) {
         object : CountDownTimer(PREVIEW_TIME, TIME_INTERVAL) {
-            override fun onTick(millisUntilFinished: Long) {
-                println(millisUntilFinished)
-            }
+            override fun onTick(millisUntilFinished: Long) {}
             override fun onFinish() {
                 toPlayState()
             }
@@ -133,6 +131,7 @@ class PlayViewModel(
                         }
                     }
                     CardState.SOLVED -> {}
+                    CardState.WRONG -> {}
                 }
                 if (_groupSolved.value == mode.numOfGroup ||
                     _clicksLeft.value == 0 ||
@@ -150,6 +149,7 @@ class PlayViewModel(
     private fun toInitState(first: Boolean = false) {
         timer?.cancel()
         previewTimer?.cancel()
+        actives.clear()
         _clicksLeft.value = mode.clickLimit
         _timeLeft.value = mode.timeLimit?.let { return@let it * MILLISECOND }
         _groupSolved.value = 0
@@ -198,6 +198,9 @@ class PlayViewModel(
         if (_state.value == GameState.PLAY) {
             _state.value = GameState.OVER(won = _groupSolved.value == mode.numOfGroup)
             timer?.cancel()
+            for (index in 0 until cards.size)
+                if(cards[index].state != CardState.SOLVED)
+                    cards[index] = cards[index].copy(state = CardState.WRONG)
         }
     }
 
@@ -220,21 +223,23 @@ class PlayViewModel(
         if (actives.size > 1 &&
                 cards[actives[actives.size - 2]].icon != cards[actives[actives.size - 1]].icon) {
             for (active in actives)
-                cards[active] =  cards[active].copy(state = CardState.FACE_DOWN)//Card(cards[active].icon,CardState.FACE_DOWN)
+                cards[active] =  cards[active].copy(state = CardState.FACE_DOWN)
             actives.clear()
         }
 
         // make card index active
         actives.add(index)
-        cards[index] = cards[index].copy(state = CardState.FACE_UP)//Card(cards[index].icon,CardState.FACE_UP)
+        cards[index] = cards[index].copy(state = CardState.FACE_UP)
 
         // check if the last 2 active cards are different and active size is equal to group length
         // if so remove all active cards and increase the number to group solved by 1
-        if (!(actives.size > 1 &&
-                cards[actives[actives.size - 2]].icon != cards[actives[actives.size - 1]].icon) &&
-                actives.size == mode.groupLength) {
+        if (actives.size > 1
+            && cards[actives[actives.size - 2]].icon != cards[actives[actives.size - 1]].icon){
             for (active in actives)
-                cards[active] = cards[active].copy(state = CardState.SOLVED)//Card(cards[active].icon,CardState.SOLVED)
+                cards[active] = cards[active].copy(state = CardState.WRONG)
+        } else if (actives.size == mode.groupLength) {
+            for (active in actives)
+                cards[active] = cards[active].copy(state = CardState.SOLVED)
             _groupSolved.value = _groupSolved.value + 1
             actives.clear()
         }
